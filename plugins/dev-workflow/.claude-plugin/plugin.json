@@ -1,0 +1,9 @@
+{
+  "name": "dev-workflow",
+  "version": "1.0.0",
+  "description": "Scenario-driven Canon TDD for implementing features and fixing bugs.",
+  "author": {
+    "name": "James Gray"
+  },
+  "repository": "https://github.com/expiracy/vibe-coding"
+}

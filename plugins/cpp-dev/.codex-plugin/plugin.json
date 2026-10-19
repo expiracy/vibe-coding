@@ -1,0 +1,14 @@
+{
+  "name": "cpp-dev",
+  "version": "1.0.0",
+  "description": "Clean Code and C++ Core Guidelines for ownership, lifetimes, interfaces, and readable C++.",
+  "author": {
+    "name": "James Gray"
+  },
+  "repository": "https://github.com/expiracy/vibe-coding",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "C++ Development",
+    "shortDescription": "Clean Code and C++ Core Guidelines for ownership, lifetimes, interfaces, and readable C++."
+  }
+}

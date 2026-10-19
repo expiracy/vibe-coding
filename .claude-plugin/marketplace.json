@@ -1,0 +1,27 @@
+{
+  "name": "vibe-coding",
+  "owner": {
+    "name": "James Gray"
+  },
+  "metadata": {
+    "description": "Personal development and documentation plugins.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "cpp-dev",
+      "source": "./plugins/cpp-dev",
+      "description": "Clean Code and C++ Core Guidelines for ownership, lifetimes, interfaces, and readable C++."
+    },
+    {
+      "name": "dev-workflow",
+      "source": "./plugins/dev-workflow",
+      "description": "Scenario-driven Canon TDD for implementing features and fixing bugs."
+    },
+    {
+      "name": "doc-tools",
+      "source": "./plugins/doc-tools",
+      "description": "Write, edit, and review prose and explanatory documents, and create consistent LaTeX/TikZ UML diagrams."
+    }
+  ]
+}

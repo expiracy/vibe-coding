@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cpp-dev",
+  "version": "1.0.0",
+  "description": "Clean Code and C++ Core Guidelines for ownership, lifetimes, interfaces, and readable C++.",
+  "author": {
+    "name": "James Gray"
+  },
+  "repository": "https://github.com/expiracy/vibe-coding"
+}
