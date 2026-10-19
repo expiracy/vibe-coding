@@ -5,7 +5,7 @@ agents. Codex and Claude Code can install them globally for your user.
 
 | Plugin | Included skills | Purpose |
 |--------|-----------------|---------|
-| [cpp-dev](plugins/cpp-dev/) | [cpp-style](plugins/cpp-dev/skills/cpp-style/SKILL.md) | Clean Code, C++ Core Guidelines, pointer contracts and lifetimes |
+| [cpp-dev](plugins/cpp-dev/) | [clean-code](plugins/cpp-dev/skills/clean-code/SKILL.md), [cpp-guidelines](plugins/cpp-dev/skills/cpp-guidelines/SKILL.md) | Separate design/readability principles and C++ language/library guidance |
 | [dev-workflow](plugins/dev-workflow/) | [canon-tdd](plugins/dev-workflow/skills/canon-tdd/SKILL.md) | Scenario-driven Canon TDD |
 | [doc-tools](plugins/doc-tools/) | [text-writing](plugins/doc-tools/skills/text-writing/SKILL.md), [uml-diagrams](plugins/doc-tools/skills/uml-diagrams/SKILL.md) | Clear prose and focused diagrams: sequence, object, class, architecture/component, and activity/workflow |
 
@@ -19,6 +19,9 @@ discovery and available tools depend on the host.
 ```text
 plugins/
   cpp-dev/
+    skills/
+      clean-code/
+      cpp-guidelines/
   dev-workflow/
   doc-tools/
     plugin.json
@@ -59,10 +62,25 @@ claude plugin install --scope user doc-tools@vibe-coding
 ```
 
 Restart the clients after installation. Plugin names namespace their skills;
-for example, Claude exposes `/cpp-dev:cpp-style`.
+for example, Claude exposes `/cpp-dev:clean-code` and `/cpp-dev:cpp-guidelines`.
 
 For another host, supply the same plugin or skill packages through its supported
 loading mechanism. Plugin installation does not install a C++ or LaTeX toolchain.
+
+## C++ skill boundaries
+
+`cpp-dev` 2.0 replaces the combined `cpp-style` skill with two independently
+usable skills. `clean-code` covers language-neutral names, responsibilities,
+comments, formatting, boundaries, error-flow clarity and tests. Its 48-topic
+catalogue contains no C++ implementation rules.
+
+`cpp-guidelines` covers the C++ Core Guidelines selection: resource handling,
+pointer/reference contracts, lifetimes, object semantics, interfaces, initialization,
+constness, type safety and error mechanisms. Each skill loads only its own
+supporting references. A task may use either skill or both when both aspects matter.
+
+Update `cpp-dev` to load the two new skill names; no separate skill installation
+is needed. The former combined `cpp-style` skill is no longer bundled.
 
 ## Update or develop plugins
 

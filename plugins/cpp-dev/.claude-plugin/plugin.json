@@ -1,7 +1,7 @@
 {
   "name": "cpp-dev",
-  "version": "1.0.0",
-  "description": "Clean Code and C++ Core Guidelines for ownership, lifetimes, interfaces, and readable C++.",
+  "version": "2.0.0",
+  "description": "Two independent skills: language-neutral Clean Code principles and C++ Core Guidelines for language and library decisions.",
   "author": {
     "name": "James Gray"
   },

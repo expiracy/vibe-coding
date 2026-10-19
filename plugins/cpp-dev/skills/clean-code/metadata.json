@@ -1,0 +1,15 @@
+{
+  "name": "clean-code",
+  "version": "1.0.0",
+  "technology": "Language-independent design and readability principles",
+  "license": "MIT",
+  "upstream_version": "1.0.7",
+  "upstream_repository": "https://github.com/pproenca/dot-skills",
+  "upstream_commit": "cf93c57cac89d6fc3e4194686000411567f5caf3",
+  "upstream_path": "skills/.experimental/clean-code",
+  "clean_code_rule_count": 48,
+  "abstract": "48 Clean Code topics on naming, cohesion, comments, formatting, errors, boundaries, classes, tests and simple design.",
+  "references": [
+    "https://www.oreilly.com/library/view/clean-code-a/9780136083238/"
+  ]
+}

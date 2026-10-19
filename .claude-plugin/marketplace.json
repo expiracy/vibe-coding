@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "Personal development and documentation plugins.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "cpp-dev",
       "source": "./plugins/cpp-dev",
-      "description": "Clean Code and C++ Core Guidelines for ownership, lifetimes, interfaces, and readable C++."
+      "description": "Two independent skills: language-neutral Clean Code principles and C++ Core Guidelines for language and library decisions."
     },
     {
       "name": "dev-workflow",

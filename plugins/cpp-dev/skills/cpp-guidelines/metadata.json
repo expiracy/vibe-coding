@@ -1,0 +1,10 @@
+{
+  "name": "cpp-guidelines",
+  "version": "1.0.0",
+  "license": "MIT",
+  "technology": "C++17 examples; later facilities require project support",
+  "abstract": "C++ language and library guidance for resources, pointers, lifetimes, object semantics, interfaces, initialization, type safety and error mechanisms.",
+  "references": [
+    "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines"
+  ]
+}
