@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Personal development and documentation plugins.",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "plugins": [
     {
@@ -17,6 +17,11 @@
       "name": "java-dev",
       "source": "./plugins/java-dev",
       "description": "Upstream Clean Code principles and caveats illustrated in Java."
+    },
+    {
+      "name": "dev-architecture",
+      "source": "./plugins/dev-architecture",
+      "description": "Clean Architecture boundaries, dependency direction and policy isolation, with C++ and Java examples."
     },
     {
       "name": "dev-workflow",

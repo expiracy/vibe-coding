@@ -7,6 +7,7 @@ agents. Codex and Claude Code can install them globally for your user.
 |--------|-----------------|---------|
 | [cpp-dev](plugins/cpp-dev/) | [clean-code](plugins/cpp-dev/skills/clean-code/SKILL.md), [cpp-guidelines](plugins/cpp-dev/skills/cpp-guidelines/SKILL.md) | Upstream Clean Code illustrated in C++, plus separate C++ language/library guidance |
 | [java-dev](plugins/java-dev/) | [clean-code](plugins/java-dev/skills/clean-code/SKILL.md) | The same upstream Clean Code rules illustrated in Java |
+| [dev-architecture](plugins/dev-architecture/) | [clean-architecture](plugins/dev-architecture/skills/clean-architecture/SKILL.md) | Policy boundaries, dependency direction and infrastructure isolation |
 | [dev-workflow](plugins/dev-workflow/) | [canon-tdd](plugins/dev-workflow/skills/canon-tdd/SKILL.md) | Scenario-driven Canon TDD |
 | [doc-tools](plugins/doc-tools/) | [text-writing](plugins/doc-tools/skills/text-writing/SKILL.md), [uml-diagrams](plugins/doc-tools/skills/uml-diagrams/SKILL.md) | Clear prose and focused diagrams: sequence, object, class, architecture/component, and activity/workflow |
 
@@ -25,6 +26,8 @@ plugins/
       cpp-guidelines/
   java-dev/
     skills/clean-code/
+  dev-architecture/
+    skills/clean-architecture/
   dev-workflow/
   doc-tools/
     plugin.json
@@ -37,7 +40,7 @@ plugins/
 .claude-plugin/marketplace.json  # Claude catalog
 ```
 
-Both catalogs expose the four packages as the `vibe-coding` marketplace. Their
+Both catalogs expose the five packages as the `vibe-coding` marketplace. Their
 package paths resolve from this repository's root. Plugins contain their actual
 files, so installed skills do not depend on a dotfiles checkout.
 
@@ -52,6 +55,7 @@ Choose either or both clients and install the plugins you want.
 codex plugin marketplace add expiracy/vibe-coding
 codex plugin add cpp-dev@vibe-coding
 codex plugin add java-dev@vibe-coding
+codex plugin add dev-architecture@vibe-coding
 codex plugin add dev-workflow@vibe-coding
 codex plugin add doc-tools@vibe-coding
 ```
@@ -62,6 +66,7 @@ codex plugin add doc-tools@vibe-coding
 claude plugin marketplace add expiracy/vibe-coding
 claude plugin install --scope user cpp-dev@vibe-coding
 claude plugin install --scope user java-dev@vibe-coding
+claude plugin install --scope user dev-architecture@vibe-coding
 claude plugin install --scope user dev-workflow@vibe-coding
 claude plugin install --scope user doc-tools@vibe-coding
 ```
@@ -89,6 +94,19 @@ Choose the Clean Code variant for the project's language. A C++ task can also us
 `cpp-guidelines` when implementation contracts matter. The Clean Code variants
 are independent copies of the upstream material and do not depend on the user's
 downstream fork or on each other.
+
+## Clean Architecture
+
+`dev-architecture:clean-architecture` is shared across languages. It adapts the
+same upstream repository's 42-rule architecture collection, with a concise main
+file, detailed references and matching C++17/Java 11 boundary examples. The
+[source notes](plugins/dev-architecture/skills/clean-architecture/UPSTREAM.md)
+record the pinned revision, licence and corrections.
+
+Use it for module boundaries, dependency direction and separation of business
+policy from infrastructure. Clean Code covers code-level clarity; C++ guidelines
+cover language/library choices; Canon TDD covers the development cycle. Apply
+only the skills relevant to the task. Simple work may need no new layers.
 
 ## Update or develop plugins
 

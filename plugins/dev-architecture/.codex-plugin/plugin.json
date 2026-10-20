@@ -1,0 +1,14 @@
+{
+  "name": "dev-architecture",
+  "version": "1.0.0",
+  "description": "Clean Architecture boundaries, dependency direction and policy isolation, with C++ and Java examples.",
+  "author": {
+    "name": "James Gray"
+  },
+  "repository": "https://github.com/expiracy/vibe-coding",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Development Architecture",
+    "shortDescription": "Clean Architecture boundaries and dependency direction."
+  }
+}
