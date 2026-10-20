@@ -1,14 +1,46 @@
 ---
-title: "Avoid Misleading Names"
+title: Avoid Disinformation in Names
 impact: CRITICAL
-impactDescription: "A name should describe what the value or operation actually represents"
-tags: clean-code, name
+impactDescription: prevents incorrect mental models
+tags: name, disinformation, misleading, types
 ---
 
-## Avoid Misleading Names
+## Avoid Disinformation in Names
 
-A name should describe what the value or operation actually represents. Do not imply an ordering, collection shape, status, or guarantee that the contract does not provide.
+Avoid names that encode false information. Do not refer to a grouping as a "List" unless it is actually a List. Avoid names that vary in small ways that are hard to distinguish.
 
-Rename a misleading concept rather than adding a comment explaining that its name is wrong. Preserve externally required names and explain their meaning at the boundary.
+**Incorrect (misleading type information):**
+
+```cpp
+#include <map>
+#include <string>
+
+namespace example {
+struct Account { int balance{}; };
+struct State {
+    std::map<std::string, Account> accountList; // It is a map, not a list.
+    std::string XYZControllerForEfficientHandlingOfStrings;
+    std::string XYZControllerForEfficientStorageOfStrings;
+};
+}
+```
+
+**Correct (accurate and distinguishable):**
+
+```cpp
+#include <map>
+#include <string>
+
+namespace example {
+struct Account { int balance{}; };
+struct State {
+    std::map<std::string, Account> accountsByName;
+    std::string stringProcessingController;
+    std::string stringStorageController;
+};
+}
+```
 
 Reference: [Clean Code, Chapter 2: Meaningful Names](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [name-avoid-disinformation](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/name-avoid-disinformation.md).

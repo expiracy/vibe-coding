@@ -1,14 +1,45 @@
 ---
-title: "Make Arguments Express a Clear Contract"
+title: Minimize Function Arguments
 impact: HIGH
-impactDescription: "Give each argument a clear role and avoid redundant or unrelated inputs"
-tags: clean-code, func
+impactDescription: reduces cognitive load and testing complexity
+tags: func, arguments, parameters, simplicity
 ---
 
-## Make Arguments Express a Clear Contract
+## Minimize Function Arguments
 
-Give each argument a clear role and avoid redundant or unrelated inputs. Several values that form one real domain concept may belong together; an arbitrary argument bag does not improve the interface.
+Review how many independent concepts a caller must supply. Group arguments that form a meaningful domain value, and reduce unrelated responsibilities where that simplifies the operation. Argument counts are prompts for review, not limits; preserve required public signatures and avoid wrappers that only hide parameters.
 
-Replace an ambiguous mode flag with a clearer operation or meaningful option when it improves the contract. Do not impose a numerical argument limit or change a public interface without considering its callers.
+**Incorrect (too many arguments):**
+
+```cpp
+
+namespace example {
+struct Circle { double x; double y; double radius; };
+Circle makeCircle(double x, double y, double radius) { return {x, y, radius}; }
+}
+```
+
+**Correct (minimized arguments):**
+
+```cpp
+
+namespace example {
+struct Point { double x; double y; };
+struct Circle { Point center; double radius; };
+Circle makeCircle(Point center, double radius) { return {center, radius}; }
+}
+```
+
+**Why fewer arguments?**
+- Easier to understand
+- Easier to test (fewer combinations)
+- Less chance of argument order errors
+
+**Acceptable monadic forms:**
+- Asking a question: `bool fileExists(const std::string& path)`
+- Transforming input: an operation that opens the named input
+- Events: `void passwordAttemptFailed(int attempts)`
 
 Reference: [Clean Code, Chapter 3: Functions](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [func-minimize-arguments](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/func-minimize-arguments.md).

@@ -1,14 +1,70 @@
 ---
-title: "Respect Useful Object Boundaries"
+title: Follow the Law of Demeter
 impact: MEDIUM-HIGH
-impactDescription: "Ask an object to perform a meaningful operation instead of making every caller navigate its changing internals"
-tags: clean-code, obj
+impactDescription: prevents hidden dependencies between modules
+tags: obj, demeter, coupling, encapsulation
 ---
 
-## Respect Useful Object Boundaries
+## Follow the Law of Demeter
 
-Ask an object to perform a meaningful operation instead of making every caller navigate its changing internals. Place a domain rule with the concept responsible for it.
+A method should only call methods on: its own object, objects passed as parameters, objects it creates, or its direct component objects. Avoid chained method calls on returned objects.
 
-Counting dots is not a design test: a plain data record or a fluent interface may legitimately expose several steps. Do not add chains of forwarding methods that merely conceal the same dependency.
+**Incorrect (train wreck - violates Law of Demeter):**
 
-Reference: [Clean Code, Chapter 6: Objects and Data Structures](https://www.oreilly.com/library/view/clean-code-a/9780136083238/).
+```cpp
+#include <string>
+
+namespace example {
+struct ScratchDir { std::string absolutePath{"scratch"}; std::string getAbsolutePath() const { return absolutePath; } };
+struct Options { ScratchDir scratchDir; const ScratchDir& getScratchDir() const { return scratchDir; } };
+struct Context { Options options; const Options& getOptions() const { return options; } };
+
+
+std::string scratchLocation(const Context& context) {
+    return context.getOptions().getScratchDir().getAbsolutePath();
+}
+}
+```
+
+**Correct (respects object boundaries):**
+
+```cpp
+#include <sstream>
+#include <string>
+
+namespace example {
+struct ScratchDir { std::string absolutePath{"scratch"}; std::string getAbsolutePath() const { return absolutePath; } };
+struct Options { ScratchDir scratchDir; const ScratchDir& getScratchDir() const { return scratchDir; } };
+struct Context { Options options; const Options& getOptions() const { return options; } };
+
+
+class Workspace {
+public:
+    std::ostringstream createScratchBuffer() const { return std::ostringstream{}; }
+};
+std::string renderScratch(const Workspace& workspace) {
+    auto buffer = workspace.createScratchBuffer();
+    buffer << "temporary report";
+    return buffer.str();
+}
+}
+```
+
+**Exception:** The Law of Demeter does not apply to data structures. If `Options`, `ScratchDir`, etc. are just data containers without behavior, the chaining is acceptable:
+
+```cpp
+#include <string>
+
+namespace example {
+struct ScratchDir { std::string absolutePath{"scratch"}; std::string getAbsolutePath() const { return absolutePath; } };
+struct Options { ScratchDir scratchDir; const ScratchDir& getScratchDir() const { return scratchDir; } };
+struct Context { Options options; const Options& getOptions() const { return options; } };
+
+// This is an explicit data record, not navigation through hidden object internals.
+std::string scratchLocation(const Context& context) { return context.options.scratchDir.absolutePath; }
+}
+```
+
+Reference: [Clean Code, Chapter 6: Objects and Data Structures](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [obj-law-of-demeter](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/obj-law-of-demeter.md).

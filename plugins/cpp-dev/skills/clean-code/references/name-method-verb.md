@@ -1,14 +1,48 @@
 ---
-title: "Name Operations for Their Behavior"
+title: Use Verb Phrases for Method Names
 impact: MEDIUM-HIGH
-impactDescription: "Use operation names that reveal the action, question, or transformation"
-tags: clean-code, name
+impactDescription: makes domain meaning easier to identify
+tags: name, method, verb, action
 ---
 
-## Name Operations for Their Behavior
+## Use Verb Phrases for Method Names
 
-Use operation names that reveal the action, question, or transformation. Keep a consistent vocabulary for the same concept throughout the interface.
+Method names should be verbs or verb phrases. Methods do things, so their names should say what they do.
 
-Choose names that expose meaningful effects. A method that issues a new ticket should not sound like a query for an existing ticket number.
+**Incorrect (non-verb or unclear):**
+
+```cpp
+
+namespace example {
+class Account {
+    bool posted_{};
+public:
+    void payment() { posted_ = true; } // Is this a query or an action?
+    bool flag() const { return posted_; }
+};
+}
+```
+
+**Correct (verb phrases):**
+
+```cpp
+
+namespace example {
+class Account {
+    bool posted_{};
+public:
+    void postPayment() { posted_ = true; }
+    bool isPosted() const { return posted_; }
+};
+}
+```
+
+Use consistent operation and predicate names within the existing interface.
+
+Follow the C++ project's established naming conventions. Query names such as
+`size()` or `name()` can be idiomatic; the goal is to make an operation's meaning
+clear, not to mandate accessor prefixes.
 
 Reference: [Clean Code, Chapter 2: Meaningful Names](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [name-method-verb](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/name-method-verb.md).

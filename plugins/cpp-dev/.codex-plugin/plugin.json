@@ -1,7 +1,7 @@
 {
   "name": "cpp-dev",
-  "version": "2.0.0",
-  "description": "Two independent skills: language-neutral Clean Code principles and C++ Core Guidelines for language and library decisions.",
+  "version": "2.1.0",
+  "description": "Two independent C++ skills: upstream Clean Code principles with C++ examples, and C++ language/library guidelines.",
   "author": {
     "name": "James Gray"
   },
@@ -9,6 +9,6 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "C++ Development",
-    "shortDescription": "Clean Code principles and C++ language guidance as separate skills."
+    "shortDescription": "Upstream Clean Code in C++, plus separate C++ guidelines."
   }
 }

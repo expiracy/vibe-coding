@@ -1,7 +1,6 @@
-# Clean Code categories
+# Sections
 
-This file defines the retained Clean Code categories, their original ordering,
-impact labels, and descriptions.
+This file defines all sections, their ordering, impact levels, and descriptions.
 The section ID (in parentheses) is the filename prefix used to group rules.
 
 ---
@@ -29,17 +28,17 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 ## 5. Error Handling (err)
 
 **Impact:** HIGH
-**Description:** Clean error handling separates happy path from exceptional cases. Preserve meaningful failures and use the project's established error contract.
+**Description:** Clean error handling separates happy path from exceptional cases. Use the error mechanism idiomatic to your language (exceptions, Result types, or explicit error returns).
 
 ## 6. Objects and Data Structures (obj)
 
 **Impact:** MEDIUM-HIGH
-**Description:** Protect real invariants behind useful operations; use aggregates for plain values. Plain transfer records can be appropriate without a behavior-rich wrapper.
+**Description:** Objects hide data and expose behavior; data structures expose data and have no behavior. Mixing these creates hybrid messes.
 
 ## 7. Boundaries (bound)
 
 **Impact:** MEDIUM-HIGH
-**Description:** Third-party code and external APIs are boundaries. Isolate dependencies that genuinely vary; keep existing types when they already provide the needed contract.
+**Description:** Third-party code and external APIs are boundaries. Wrap them to isolate change, ease testing, and maintain control over your codebase's interfaces.
 
 ## 8. Classes and Systems (class)
 
@@ -54,6 +53,4 @@ The section ID (in parentheses) is the filename prefix used to group rules.
 ## 10. Emergence and Simple Design (emerge)
 
 **Impact:** MEDIUM
-**Description:** The book's simple-design order is: pass tests, eliminate duplicated knowledge, express intent, minimize elements. Resist the urge to over-engineer.
-
-Correctness and project contracts take precedence over the inherited impact ordering. The rules are language-independent.
+**Description:** Good design emerges from following four rules in order: pass tests, reveal intent, eliminate duplication, minimize elements. Resist the urge to over-engineer.

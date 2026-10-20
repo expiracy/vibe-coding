@@ -1,14 +1,67 @@
 ---
-title: "Delete Obsolete Commented-Out Code"
+title: Delete Commented-Out Code
 impact: HIGH
-impactDescription: "Remove abandoned executable code from maintained source once its purpose is understood"
-tags: clean-code, cmt
+impactDescription: prevents code archaeology confusion
+tags: cmt, dead-code, version-control, clutter
 ---
 
-## Delete Obsolete Commented-Out Code
+## Delete Commented-Out Code
 
-Remove abandoned executable code from maintained source once its purpose is understood. Version control preserves committed history; inactive alternatives obscure the current implementation.
+Commented-out code is an abomination. Others who see it will not have the courage to delete it. They think it must be there for a reason. It rots and becomes increasingly irrelevant.
 
-Distinguish obsolete code from a useful usage example, required compatibility path, or meaningful rationale. Preserve required notices, and represent a still-supported alternative through the project's actual configuration mechanism.
+**Incorrect (commented-out code persisting):**
+
+```cpp
+
+namespace example {
+struct Order { int discount{}; bool saved{}; bool warehouseNotified{}; };
+void validateOrder(const Order&) {}
+void calculateDiscount(Order& order) { order.discount = 10; }
+void saveOrder(Order& order) { order.saved = true; }
+void notifyWarehouse(Order& order) { order.warehouseNotified = true; }
+
+
+void processOrder(Order& order) {
+    validateOrder(order);
+    // calculateLegacyDiscount(order);
+    // sendNotification(order);
+    calculateDiscount(order);
+    saveOrder(order);
+    // logOrderDetails(order);
+    notifyWarehouse(order);
+}
+}
+```
+
+**Correct (clean code, trust version control):**
+
+```cpp
+
+namespace example {
+struct Order { int discount{}; bool saved{}; bool warehouseNotified{}; };
+void validateOrder(const Order&) {}
+void calculateDiscount(Order& order) { order.discount = 10; }
+void saveOrder(Order& order) { order.saved = true; }
+void notifyWarehouse(Order& order) { order.warehouseNotified = true; }
+
+
+void processOrder(Order& order) {
+    validateOrder(order);
+    calculateDiscount(order);
+    saveOrder(order);
+    notifyWarehouse(order);
+}
+}
+```
+
+**Why delete it?**
+- Version control remembers everything
+- Commented code creates confusion: Is it needed? Why is it there?
+- It clutters the file and makes scanning harder
+- It becomes stale and misleading over time
+
+**If you really need it:** Create a git branch, or add a reference comment pointing to the commit where it was removed.
 
 Reference: [Clean Code, Chapter 4: Comments](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [cmt-avoid-commented-out-code](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/cmt-avoid-commented-out-code.md).

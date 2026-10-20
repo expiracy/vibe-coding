@@ -1,0 +1,19 @@
+{
+  "name": "clean-code",
+  "version": "1.0.0",
+  "license": "MIT",
+  "language": "Java",
+  "example_baseline": "Java 11",
+  "upstream_repository": "https://github.com/pproenca/dot-skills",
+  "upstream_commit": "cf93c57cac89d6fc3e4194686000411567f5caf3",
+  "upstream_path": "skills/.experimental/clean-code",
+  "upstream_version": "1.0.7",
+  "clean_code_rule_count": 48,
+  "category_count": 10,
+  "abstract": "Direct upstream Clean Code adaptation with Java examples and contextual design/readability guidance.",
+  "references": [
+    "https://www.oreilly.com/library/view/clean-code-a/9780136083238/",
+    "https://blog.cleancoder.com/",
+    "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882"
+  ]
+}

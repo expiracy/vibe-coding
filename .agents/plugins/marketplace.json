@@ -17,6 +17,18 @@
       "category": "Productivity"
     },
     {
+      "name": "java-dev",
+      "source": {
+        "source": "local",
+        "path": "./plugins/java-dev"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "dev-workflow",
       "source": {
         "source": "local",

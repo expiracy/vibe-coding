@@ -1,0 +1,14 @@
+{
+  "name": "java-dev",
+  "version": "1.0.0",
+  "description": "Upstream Clean Code principles and caveats illustrated in Java.",
+  "author": {
+    "name": "James Gray"
+  },
+  "repository": "https://github.com/expiracy/vibe-coding",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Java Development",
+    "shortDescription": "Upstream Clean Code principles and caveats illustrated in Java."
+  }
+}

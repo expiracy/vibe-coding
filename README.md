@@ -5,7 +5,8 @@ agents. Codex and Claude Code can install them globally for your user.
 
 | Plugin | Included skills | Purpose |
 |--------|-----------------|---------|
-| [cpp-dev](plugins/cpp-dev/) | [clean-code](plugins/cpp-dev/skills/clean-code/SKILL.md), [cpp-guidelines](plugins/cpp-dev/skills/cpp-guidelines/SKILL.md) | Separate design/readability principles and C++ language/library guidance |
+| [cpp-dev](plugins/cpp-dev/) | [clean-code](plugins/cpp-dev/skills/clean-code/SKILL.md), [cpp-guidelines](plugins/cpp-dev/skills/cpp-guidelines/SKILL.md) | Upstream Clean Code illustrated in C++, plus separate C++ language/library guidance |
+| [java-dev](plugins/java-dev/) | [clean-code](plugins/java-dev/skills/clean-code/SKILL.md) | The same upstream Clean Code rules illustrated in Java |
 | [dev-workflow](plugins/dev-workflow/) | [canon-tdd](plugins/dev-workflow/skills/canon-tdd/SKILL.md) | Scenario-driven Canon TDD |
 | [doc-tools](plugins/doc-tools/) | [text-writing](plugins/doc-tools/skills/text-writing/SKILL.md), [uml-diagrams](plugins/doc-tools/skills/uml-diagrams/SKILL.md) | Clear prose and focused diagrams: sequence, object, class, architecture/component, and activity/workflow |
 
@@ -22,6 +23,8 @@ plugins/
     skills/
       clean-code/
       cpp-guidelines/
+  java-dev/
+    skills/clean-code/
   dev-workflow/
   doc-tools/
     plugin.json
@@ -34,7 +37,7 @@ plugins/
 .claude-plugin/marketplace.json  # Claude catalog
 ```
 
-Both catalogs expose the three packages as the `vibe-coding` marketplace. Their
+Both catalogs expose the four packages as the `vibe-coding` marketplace. Their
 package paths resolve from this repository's root. Plugins contain their actual
 files, so installed skills do not depend on a dotfiles checkout.
 
@@ -48,6 +51,7 @@ Choose either or both clients and install the plugins you want.
 ```sh
 codex plugin marketplace add expiracy/vibe-coding
 codex plugin add cpp-dev@vibe-coding
+codex plugin add java-dev@vibe-coding
 codex plugin add dev-workflow@vibe-coding
 codex plugin add doc-tools@vibe-coding
 ```
@@ -57,6 +61,7 @@ codex plugin add doc-tools@vibe-coding
 ```sh
 claude plugin marketplace add expiracy/vibe-coding
 claude plugin install --scope user cpp-dev@vibe-coding
+claude plugin install --scope user java-dev@vibe-coding
 claude plugin install --scope user dev-workflow@vibe-coding
 claude plugin install --scope user doc-tools@vibe-coding
 ```
@@ -65,22 +70,25 @@ Restart the clients after installation. Plugin names namespace their skills;
 for example, Claude exposes `/cpp-dev:clean-code` and `/cpp-dev:cpp-guidelines`.
 
 For another host, supply the same plugin or skill packages through its supported
-loading mechanism. Plugin installation does not install a C++ or LaTeX toolchain.
+loading mechanism. Plugin installation does not install a C++, Java or LaTeX toolchain.
 
-## C++ skill boundaries
+## Clean Code source and language variants
 
-`cpp-dev` 2.0 replaces the combined `cpp-style` skill with two independently
-usable skills. `clean-code` covers language-neutral names, responsibilities,
-comments, formatting, boundaries, error-flow clarity and tests. Its 48-topic
-catalogue contains no C++ implementation rules.
+Both Clean Code skills are based directly on
+[pproenca/dot-skills](https://github.com/pproenca/dot-skills/tree/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code)
+at commit `cf93c57cac89d6fc3e4194686000411567f5caf3`, upstream version 1.0.7. They preserve its 48-rule,
+ten-category collection and licence, with a concise main file and detailed
+references. Each variant records its source and adaptation notes.
 
-`cpp-guidelines` covers the C++ Core Guidelines selection: resource handling,
-pointer/reference contracts, lifetimes, object semantics, interfaces, initialization,
-constness, type safety and error mechanisms. Each skill loads only its own
-supporting references. A task may use either skill or both when both aspects matter.
+- `cpp-dev:clean-code` uses C++17 examples of the upstream principles.
+- `java-dev:clean-code` retains/adapts the upstream Java examples for Java 11.
+- `cpp-dev:cpp-guidelines` remains separate and unchanged: resources, pointers,
+  lifetimes, object semantics, interfaces and other C++ implementation policies.
 
-Update `cpp-dev` to load the two new skill names; no separate skill installation
-is needed. The former combined `cpp-style` skill is no longer bundled.
+Choose the Clean Code variant for the project's language. A C++ task can also use
+`cpp-guidelines` when implementation contracts matter. The Clean Code variants
+are independent copies of the upstream material and do not depend on the user's
+downstream fork or on each other.
 
 ## Update or develop plugins
 

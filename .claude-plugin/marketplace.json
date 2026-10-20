@@ -5,13 +5,18 @@
   },
   "metadata": {
     "description": "Personal development and documentation plugins.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "cpp-dev",
       "source": "./plugins/cpp-dev",
-      "description": "Two independent skills: language-neutral Clean Code principles and C++ Core Guidelines for language and library decisions."
+      "description": "Two independent C++ skills: upstream Clean Code principles with C++ examples, and C++ language/library guidelines."
+    },
+    {
+      "name": "java-dev",
+      "source": "./plugins/java-dev",
+      "description": "Upstream Clean Code principles and caveats illustrated in Java."
     },
     {
       "name": "dev-workflow",

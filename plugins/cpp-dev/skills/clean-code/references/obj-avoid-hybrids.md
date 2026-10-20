@@ -1,14 +1,57 @@
 ---
-title: "Keep Data and Behavior Responsibilities Clear"
+title: Avoid Hybrid Data-Object Structures
 impact: MEDIUM-HIGH
-impactDescription: "Make it clear whether a type is a plain record or an abstraction responsible for enforcing a rule"
-tags: clean-code, obj
+impactDescription: prevents worst-of-both-worlds maintenance burden
+tags: obj, hybrid, structure, design
 ---
 
-## Keep Data and Behavior Responsibilities Clear
+## Avoid Hybrid Data-Object Structures
 
-Make it clear whether a type is a plain record or an abstraction responsible for enforcing a rule. Avoid a design that appears to protect an invariant while callers can bypass it through exposed internal state.
+Hybrids are half object, half data structure. They have functions that do significant things, AND they have public variables or accessors that expose internal structure. Avoid creating these monstrosities.
 
-Public data plus harmless convenience operations can be appropriate for a value or transfer record. Do not add a layer of mechanical accessors merely to make the type look encapsulated.
+**Incorrect (hybrid structure):**
 
-Reference: [Clean Code, Chapter 6: Objects and Data Structures](https://www.oreilly.com/library/view/clean-code-a/9780136083238/).
+```cpp
+#include <stdexcept>
+#include <string>
+
+namespace example {
+struct Employee {
+    std::string name;
+    int salary{};
+    void giveRaise(int increase) {
+        if (increase < 0) throw std::invalid_argument("negative raise");
+        salary += increase;
+    }
+    // A caller can bypass giveRaise and assign any salary directly.
+};
+}
+```
+
+**Correct (choose one approach):**
+
+```cpp
+#include <stdexcept>
+#include <string>
+
+namespace example {
+class Employee {
+    std::string name_;
+    int salary_{};
+public:
+    explicit Employee(std::string name) : name_(name) {}
+    void giveRaise(int increase) {
+        if (increase < 0) throw std::invalid_argument("negative raise");
+        salary_ += increase;
+    }
+    int salary() const { return salary_; }
+};
+struct EmployeeData { std::string name; int salary; };
+}
+```
+
+Hybrids make it hard to add new functions AND hard to add new data structures.
+
+Reference: [Clean Code, Chapter 6: Objects and Data Structures](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [obj-avoid-hybrids](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/obj-avoid-hybrids.md).

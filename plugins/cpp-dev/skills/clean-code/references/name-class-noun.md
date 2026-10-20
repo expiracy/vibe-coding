@@ -1,14 +1,42 @@
 ---
-title: "Use Domain Names for Types"
+title: Use Noun Phrases for Class Names
 impact: MEDIUM-HIGH
-impactDescription: "Name a type after the concept or role it represents"
-tags: clean-code, name
+impactDescription: makes domain meaning easier to identify
+tags: name, class, noun, identity
 ---
 
-## Use Domain Names for Types
+## Use Noun Phrases for Class Names
 
-Name a type after the concept or role it represents. A name should help readers predict its responsibility, rather than hiding unrelated work behind a vague manager or utility label.
+Class names should be nouns or noun phrases. A class represents a thing or concept. Avoid verbs, manager-style names, and vague words.
 
-This is a naming principle, not a requirement to turn every operation into a class. Introduce a type only when it serves the existing design and requirements.
+**Incorrect (verbs, vague, or manager-style):**
+
+```cpp
+
+namespace example {
+struct ProcessPayment {};
+struct Manager {};
+struct Data {};
+}
+```
+
+**Correct (specific noun phrases):**
+
+```cpp
+
+namespace example {
+struct Payment {};
+struct PaymentGateway {};
+struct AccountRepository {};
+}
+```
+
+**When NOT to use this pattern:**
+
+Manager-style names are acceptable when the class genuinely manages a resource lifecycle:
+- `ConnectionPool` - manages connection lifecycle
+- `ThreadPool` - manages thread lifecycle
 
 Reference: [Clean Code, Chapter 2: Meaningful Names](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [name-class-noun](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/name-class-noun.md).

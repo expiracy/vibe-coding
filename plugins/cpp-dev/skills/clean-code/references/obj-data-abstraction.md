@@ -1,14 +1,48 @@
 ---
-title: "Expose Meaningful Operations"
+title: Hide Data Behind Abstractions
 impact: MEDIUM-HIGH
-impactDescription: "Hide representation behind operations when that protects an actual invariant or lets the representation change independently"
-tags: clean-code, obj
+impactDescription: enables implementation changes without ripple effects
+tags: obj, abstraction, encapsulation, data-hiding
 ---
 
-## Expose Meaningful Operations
+## Hide Data Behind Abstractions
 
-Hide representation behind operations when that protects an actual invariant or lets the representation change independently. Design an interface around what callers need to do.
+Objects hide their data behind abstractions and expose functions that operate on that data. Data structures expose their data and have no meaningful functions. Do not mix these concepts.
 
-Mechanical accessors for every field do not necessarily provide an abstraction. Plain records are appropriate when their purpose is to transfer independent data without enforcing behavior.
+**Incorrect (exposing implementation):**
 
-Reference: [Clean Code, Chapter 6: Objects and Data Structures](https://www.oreilly.com/library/view/clean-code-a/9780136083238/).
+```cpp
+#include <cmath>
+
+namespace example {
+struct Point { double x; double y; };
+double distanceFromOrigin(const Point& point) { return std::hypot(point.x, point.y); }
+}
+```
+
+**Correct (hiding behind abstraction — immutable):**
+
+```cpp
+#include <cmath>
+
+namespace example {
+class Point {
+    double x_;
+    double y_;
+    Point(double x, double y) : x_(x), y_(y) {}
+public:
+    static Point fromCartesian(double x, double y) { return Point(x, y); }
+    static Point fromPolar(double r, double theta) { return Point(r * std::cos(theta), r * std::sin(theta)); }
+    double getX() const { return x_; }
+    double getY() const { return y_; }
+    double getR() const { return std::hypot(x_, y_); }
+};
+double distanceFromOrigin(const Point& point) { return point.getR(); }
+}
+```
+
+**Key insight:** The abstraction is not just about using getters/setters. It is about hiding the form of the data and exposing operations that work with the abstract concept. A clear value and mutability contract can simplify reasoning. A factory or the absence of setters does not by itself guarantee correct behavior or thread safety.
+
+Reference: [Clean Code, Chapter 6: Objects and Data Structures](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [obj-data-abstraction](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/obj-data-abstraction.md).

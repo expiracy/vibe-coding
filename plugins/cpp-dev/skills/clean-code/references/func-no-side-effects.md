@@ -1,14 +1,55 @@
 ---
-title: "Avoid Surprising Side Effects"
+title: Avoid Side Effects
 impact: HIGH
-impactDescription: "Make significant effects visible in the operation's name and contract"
-tags: clean-code, func
+impactDescription: prevents hidden temporal couplings
+tags: func, side-effects, purity, predictability
 ---
 
-## Avoid Surprising Side Effects
+## Avoid Side Effects
 
-Make significant effects visible in the operation's name and contract. A calculation or query should not unexpectedly change configuration, send a message, or alter unrelated state.
+Side effects are lies. Your function promises to do one thing, but it also does other hidden things. Avoid unexpected changes to class variables, globals, or passed arguments.
 
-Necessary effects can be appropriate; keep them deliberate and easy for callers to identify. Refactoring should preserve required effects and their ordering, rather than removing them to make a function look pure.
+**Incorrect (hidden side effect):**
+
+```cpp
+
+namespace example {
+// The authentication result is supplied; this is not a password algorithm.
+struct User { bool passwordAccepted{}; };
+struct Session { int initializations{}; void initialize() { ++initializations; } };
+
+
+bool checkPassword(const User& user, Session& session) {
+    if (!user.passwordAccepted) return false;
+    session.initialize(); // Hidden change in a query-like operation.
+    return true;
+}
+}
+```
+
+**Correct (explicit behavior):**
+
+```cpp
+
+namespace example {
+// The authentication result is supplied; this is not a password algorithm.
+struct User { bool passwordAccepted{}; };
+struct Session { int initializations{}; void initialize() { ++initializations; } };
+
+
+bool checkPassword(const User& user) { return user.passwordAccepted; }
+void initializeSessionForUser(const User& user, Session& session) {
+    if (checkPassword(user)) session.initialize();
+}
+}
+```
+
+If you must have a temporal coupling, make it explicit in the function name: `checkPasswordAndInitializeSession`.
+
+**When side effects are expected:**
+- I/O operations (file writes, network calls, database mutations) inherently have side effects — the principle here is about *hidden* side effects, not avoiding all mutation. A function named `saveUser()` clearly signals side effects.
+- Event handlers, middleware, and lifecycle hooks are designed to produce side effects. Name them to make the effect obvious.
 
 Reference: [Clean Code, Chapter 3: Functions](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [func-no-side-effects](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/func-no-side-effects.md).

@@ -1,14 +1,71 @@
 ---
-title: "Define Errors by Caller Needs"
+title: Define Exceptions by Caller Needs
 impact: HIGH
-impactDescription: "Classify failures by what the caller can do about them"
-tags: clean-code, err
+impactDescription: makes success and failure contracts understandable
+tags: err, wrapper, classification, design
 ---
 
-## Define Errors by Caller Needs
+## Define Exceptions by Caller Needs
 
-Classify failures by what the caller can do about them. Translate dependency-specific details at an appropriate boundary while retaining their useful causes.
+Define exception classes based on how they are caught, not on their source or type. Often a single exception class is sufficient for a particular area of code. Wrap third-party API exceptions.
 
-Do not flatten failures with different recovery actions into one undifferentiated message, or create a new hierarchy when the existing contract already fits. Retry only when the operation's contract permits it.
+**Incorrect (catching many exception types):**
 
-Reference: [Clean Code, Chapter 7: Error Handling](https://www.oreilly.com/library/view/clean-code-a/9780136083238/).
+```cpp
+#include <stdexcept>
+#include <string>
+
+namespace example {
+struct DeviceResponseError : std::runtime_error { using std::runtime_error::runtime_error; };
+struct DeviceTimeoutError : std::runtime_error { using std::runtime_error::runtime_error; };
+void readVendorPort(int status) {
+    if (status == 1) throw DeviceResponseError("invalid response");
+    if (status == 2) throw DeviceTimeoutError("timed out");
+}
+
+
+std::string usePort(int status) {
+    try { readVendorPort(status); return "ready"; }
+    catch (const DeviceResponseError& error) { return std::string("port unavailable: ") + error.what(); }
+    catch (const DeviceTimeoutError& error) { return std::string("port unavailable: ") + error.what(); }
+}
+}
+```
+
+**Correct (unified exception handling):**
+
+```cpp
+#include <stdexcept>
+#include <string>
+
+namespace example {
+struct DeviceResponseError : std::runtime_error { using std::runtime_error::runtime_error; };
+struct DeviceTimeoutError : std::runtime_error { using std::runtime_error::runtime_error; };
+void readVendorPort(int status) {
+    if (status == 1) throw DeviceResponseError("invalid response");
+    if (status == 2) throw DeviceTimeoutError("timed out");
+}
+
+
+struct PortUnavailable : std::runtime_error { using std::runtime_error::runtime_error; };
+void readLocalPort(int status) {
+    try { readVendorPort(status); }
+    catch (const DeviceResponseError& error) { throw PortUnavailable(error.what()); }
+    catch (const DeviceTimeoutError& error) { throw PortUnavailable(error.what()); }
+}
+std::string usePort(int status) {
+    try { readLocalPort(status); return "ready"; }
+    catch (const PortUnavailable& error) { return std::string("port unavailable: ") + error.what(); }
+}
+}
+```
+
+**Benefits of wrapping:**
+- Minimizes dependencies on third-party APIs
+- Easier to mock for testing
+- Easier to switch implementations later
+- Single exception type per area simplifies catching
+
+Reference: [Clean Code, Chapter 7: Error Handling](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [err-define-by-caller-needs](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/err-define-by-caller-needs.md).

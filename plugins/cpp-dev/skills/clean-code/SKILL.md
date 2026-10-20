@@ -1,49 +1,49 @@
 ---
 name: clean-code
-description: Apply language-independent Clean Code principles when reviewing or refactoring names, function responsibilities, comments, formatting, boundaries, error-flow readability, and tests. Use for design clarity and maintainability, rather than language or library mechanisms.
+description: Apply the upstream Clean Code principles to C++ code when writing, reviewing, or refactoring names, functions, comments, formatting, errors, objects, boundaries, classes, and tests. Uses C++ examples; focuses on design and readability rather than language implementation policy.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
+  language-baseline: "C++17"
 ---
 
-# Clean Code
+# Clean Code for C++
 
-Make the code's purpose and behavior easy to understand. Apply the principles
-within the project's contracts and conventions, rather than treating them as
-universal rules or quotas. Keep implementation mechanisms in language-specific
-guidance; this skill is independently usable across languages.
+Use the original [pproenca/dot-skills Clean Code collection](https://github.com/pproenca/dot-skills/tree/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code)
+as the source for design and readability principles, illustrated here in C++.
+The skill retains its 48 rules and ten categories. Read only the reference needed
+for the current decision through the [rule index](references/clean-code-index.md).
 
-## Review the design and its expression
+## Apply the principles in context
 
-- Choose names that reveal domain meaning, units, and meaningful distinctions.
-- Keep functions cohesive and at a useful level of abstraction. Extract a named
-  concept when it clarifies the work, not merely to shorten a function.
-- Make important effects visible. A command may return its natural outcome;
-  do not break an indivisible operation to enforce command/query separation.
-- Use comments for reasons, constraints, and required contracts. Prefer clearer
-  code to narration, while preserving meaningful documentation and notices.
-- Follow project formatting so related concepts are easy to read together.
-- Keep successful work readable and failures meaningful to callers. Distinguish
-  an expected missing value from an error; preserve diagnostic context.
-- Protect actual invariants and isolate dependencies that genuinely vary.
-  Plain data records are valid when behavior-rich abstractions are unnecessary.
-- Give each responsibility a clear home. Do not add hierarchies, wrappers, or
-  forwarding methods solely to demonstrate a design principle.
-- Make tests explain observable behavior. Several assertions may describe one
-  concept; arbitrary assertion limits can make the story harder to follow.
-- Remove duplicated knowledge and unnecessary structure while preserving
-  behavior. Similar-looking code does not always represent the same policy.
+- Use names that reveal intent and meaningful distinctions.
+- Keep functions and classes focused on coherent responsibilities. Treat size
+  and argument counts as review prompts, not quotas.
+- Make effects and error contracts clear without breaking required combined
+  operations or changing project failure conventions.
+- Keep useful comments, required API documentation and notices. Prefer clearer
+  expressions to narration and follow the project's formatting conventions.
+- Separate data transfer, domain behavior and changing dependencies where the
+  actual design benefits. Do not create wrappers or hierarchies by habit.
+- Make tests describe one behavior with readable setup, action and checks.
+  Several assertions may describe the same concept.
+- Prefer a simple design that meets current requirements, expresses intent and
+  avoids duplicated knowledge. Preserve observable behavior when refactoring.
 
-## Read only the relevant detail
+## Use the C++ examples appropriately
 
-Use the [48-topic index](references/clean-code-index.md) to find the principle
-needed for the current question. Read that rule and any relevant counterexample
-or limitation, rather than loading the whole catalogue. The retained categories
-and rankings provide source traceability, not an order that overrides correctness.
+Examples target C++17. Follow the project's declared version, public
+interfaces, conventions and error policy; do not modernize unrelated code or
+introduce a framework to reproduce an illustration.
 
-Check refactors against the project's existing behavior and meaningful checks.
-Report actual results and any verification limits. A cleaner-looking change is
-not evidence of correctness on its own.
+The C++ examples are small standalone translation units; the domain and vendor
+models are illustrative. Keep language/library implementation policies in the
+separate C++ guidance.
 
-[Source and adaptation notes](UPSTREAM.md) explain the collection's origin.
-Use the [rule template](assets/templates/_template.md) only when extending it.
+Use existing project checks and report what actually ran. Passing examples are
+evidence about those examples, not proof that an application is correct or that
+every principle applies universally.
+
+[Source and adaptation notes](UPSTREAM.md) identify the exact upstream snapshot
+and bounded corrections. Use the [rule template](assets/templates/_template.md)
+only when extending the collection.

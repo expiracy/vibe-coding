@@ -1,14 +1,56 @@
 ---
-title: "Keep Classes Cohesive"
+title: Maintain Class Cohesion
 impact: MEDIUM
-impactDescription: "Group state and operations around one concept or invariant"
-tags: clean-code, class
+impactDescription: enables extracting focused subclasses
+tags: class, cohesion, variables, methods
 ---
 
-## Keep Classes Cohesive
+## Maintain Class Cohesion
 
-Group state and operations around one concept or invariant. Accessing the same fields is not sufficient evidence of cohesion if the methods serve unrelated responsibilities.
+Classes should have a small number of instance variables. Each method should manipulate one or more of those variables. Methods should support a coherent concept; touching more fields does not make unrelated responsibilities cohesive.
 
-Extract an independent concept when one is present, but do not require every method to touch every field. Avoid duplicating state that the existing abstraction already represents.
+**Incorrect (low cohesion - methods use different variables):**
+
+```cpp
+#include <string>
+#include <vector>
+
+namespace example {
+struct MiscellaneousState {
+    std::vector<int> elements;
+    std::string applicationVersion{"1.0"};
+    int focusedWidget{};
+    void push(int element) { elements.push_back(element); }
+    std::string getVersion() const { return applicationVersion; }
+    void focusWidget(int widget) { focusedWidget = widget; }
+};
+}
+```
+
+**Correct (high cohesion - methods use shared variables):**
+
+```cpp
+#include <stdexcept>
+#include <vector>
+
+namespace example {
+class Stack {
+    std::vector<int> elements;
+public:
+    void push(int element) { elements.push_back(element); }
+    bool isEmpty() const { return elements.empty(); }
+    int pop() {
+        if (isEmpty()) throw std::out_of_range("empty stack");
+        const int top = elements.back();
+        elements.pop_back();
+        return top;
+    }
+};
+}
+```
+
+**When cohesion breaks down:** If a subset of methods only uses a subset of variables, extract those methods and variables into a separate class.
 
 Reference: [Clean Code, Chapter 10: Classes](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [class-cohesion](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/class-cohesion.md).

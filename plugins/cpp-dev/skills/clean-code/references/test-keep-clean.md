@@ -1,14 +1,69 @@
 ---
-title: "Keep Tests Readable"
+title: Keep Tests Clean
 impact: MEDIUM
-impactDescription: "Treat tests as maintained code"
-tags: clean-code, test
+impactDescription: maintains test maintainability over time
+tags: test, clean, maintainability, quality
 ---
 
-## Keep Tests Readable
+## Keep Tests Clean
 
-Treat tests as maintained code. Make the relevant inputs, action, expected behavior, and failure context clear. Use modest helpers without hiding the scenario behind fixture machinery.
+Test code is just as important as production code. It requires thought, design, and care. If you let tests rot, they become a liability instead of an asset.
 
-Prefer observable results and state over private implementation details. Check required external interactions when they are part of the behavior, and keep unrelated scenarios independently understandable.
+**Incorrect (dirty tests):**
+
+```cpp
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+namespace example {
+void require(bool condition, const std::string& message) {
+    if (!condition) throw std::logic_error(message);
+}
+
+struct User { std::string name; std::string email; bool active{}; std::vector<int> orders; };
+User createUser(const std::string& name, const std::string& email) { return {name, email, true, {}}; }
+
+
+void testUser() {
+    auto u = createUser("Bob", "bob@example.com");
+    require(u.name == "Bob", "name");
+    require(u.email == "bob@example.com", "email");
+    require(u.active, "active");
+}
+}
+```
+
+**Correct (clean, readable tests):**
+
+```cpp
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+namespace example {
+void require(bool condition, const std::string& message) {
+    if (!condition) throw std::logic_error(message);
+}
+
+struct User { std::string name; std::string email; bool active{}; std::vector<int> orders; };
+User createUser(const std::string& name, const std::string& email) { return {name, email, true, {}}; }
+
+
+void createsAnActiveUserWithTheSuppliedIdentity() {
+    const auto user = createUser("Bob", "bob@example.com");
+    require(user.name == "Bob", "supplied name is preserved");
+    require(user.email == "bob@example.com", "supplied email is preserved");
+    require(user.active, "a newly created user is active");
+}
+}
+```
+
+**Qualities of clean tests:**
+- Readable: Clear setup, action, assertion
+- One concept per test
+- Descriptive names explaining what is being tested
 
 Reference: [Clean Code, Chapter 9: Unit Tests](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [test-keep-clean](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/test-keep-clean.md).

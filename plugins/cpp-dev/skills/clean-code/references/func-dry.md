@@ -1,14 +1,42 @@
 ---
-title: "Avoid Duplicated Knowledge"
+title: Do Not Repeat Yourself
 impact: CRITICAL
-impactDescription: "Give a business rule or policy one authoritative representation when its uses must change together"
-tags: clean-code, func
+impactDescription: prevents N× maintenance burden
+tags: func, dry, duplication, abstraction
 ---
 
-## Avoid Duplicated Knowledge
+## Do Not Repeat Yourself
 
-Give a business rule or policy one authoritative representation when its uses must change together. Distinguish repeated knowledge from code that merely looks similar.
+Duplication is the root of all evil in software. When an algorithm changes, you must change it in multiple places. When you fix a bug, you must remember to fix it everywhere.
 
-Extract a shared concept only when the relationship is real. Combining unrelated cases behind flags or a speculative abstraction can make future changes harder than a small amount of local repetition.
+**Incorrect (duplicated logic):**
+
+```cpp
+
+namespace example {
+int regularPay(int days, int dailyRate) { return days * dailyRate; }
+int holidayPay(int days, int dailyRate) { return days * dailyRate; }
+}
+```
+
+**Correct (extracted common logic):**
+
+```cpp
+
+namespace example {
+int payForDays(int days, int dailyRate) { return days * dailyRate; }
+int regularPay(int days, int dailyRate) { return payForDays(days, dailyRate); }
+int holidayPay(int days, int dailyRate) { return payForDays(days, dailyRate); }
+}
+```
+
+Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
+
+**When NOT to apply DRY:**
+- **Coincidental duplication:** Two code blocks look similar but serve different purposes and will evolve independently. Extracting a shared function creates a false coupling that makes both harder to change later.
+- **Premature abstraction:** If the code has only been duplicated once, wait. The third occurrence reveals the true abstraction. Premature extraction often produces awkward, over-parameterized helpers.
+- **Cross-boundary duplication:** Sometimes duplication across microservices or bounded contexts is preferable to introducing a shared library that couples the services.
 
 Reference: [Clean Code, Chapter 3: Functions](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [func-dry](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/func-dry.md).

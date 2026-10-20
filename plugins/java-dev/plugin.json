@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "java-dev",
+  "version": "1.0.0",
+  "description": "Upstream Clean Code principles and caveats illustrated in Java.",
+  "author": {
+    "name": "James Gray"
+  },
+  "repository": "https://github.com/expiracy/vibe-coding"
+}

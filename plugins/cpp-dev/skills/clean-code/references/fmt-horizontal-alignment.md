@@ -1,14 +1,47 @@
 ---
-title: "Avoid Fragile Horizontal Alignment"
+title: Avoid Horizontal Alignment
 impact: MEDIUM
-impactDescription: "Use ordinary consistent spacing rather than padding unrelated declarations or expressions into columns"
-tags: clean-code, fmt
+impactDescription: prevents alignment maintenance burden
+tags: fmt, horizontal, alignment, whitespace
 ---
 
-## Avoid Fragile Horizontal Alignment
+## Avoid Horizontal Alignment
 
-Use ordinary consistent spacing rather than padding unrelated declarations or expressions into columns. Alignment that requires distant edits after a rename makes maintenance noisier.
+Horizontal alignment of variable declarations or assignments looks nice but creates maintenance problems. When one line changes length, all aligned lines need reformatting.
 
-Preserve an established formatter or a genuinely useful tabular representation. Do not turn a focused behavior change into a repository-wide formatting rewrite.
+**Incorrect (horizontal alignment):**
+
+```cpp
+#include <string>
+
+namespace example {
+struct ConnectionState {
+    std::string    remoteHost;
+    int            requestParsingTimeLimit{};
+    int            requestProgress{};
+};
+}
+```
+
+**Correct (natural formatting):**
+
+```cpp
+#include <string>
+
+namespace example {
+struct ConnectionState {
+    std::string remoteHost;
+    int requestParsingTimeLimit{};
+    int requestProgress{};
+};
+}
+```
+
+**Why avoid alignment?**
+- Adding a longer variable name requires reformatting all lines
+- Eyes are drawn to the wrong thing (the alignment, not the names)
+- Most formatters don't preserve it anyway
 
 Reference: [Clean Code, Chapter 5: Formatting](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
+
+Upstream rule: [fmt-horizontal-alignment](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/fmt-horizontal-alignment.md).

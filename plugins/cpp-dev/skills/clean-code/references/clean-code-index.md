@@ -1,11 +1,10 @@
-# Clean Code reference index
+# Clean Code rule index
 
-The following 48 topics retain the original ordering and labels for traceability.
-Use them for the specific design question being considered. Correctness and the project's contracts take precedence over stylistic rankings.
+The categories, ordering and rule identifiers come directly from the pinned
+upstream skill. Descriptions are adapted to the variant language. Rankings are
+editorial priorities, not measured guarantees.
 
-## Rule Categories
-
-The index keeps upstream ordering and impact labels for traceability. Correctness and the caller's contract take precedence over style rankings.
+## Rule Categories by Priority
 
 | Priority | Category | Impact | Prefix |
 |----------|----------|--------|--------|
@@ -30,12 +29,12 @@ The index keeps upstream ordering and impact labels for traceability. Correctnes
 - [`name-pronounceable`](name-pronounceable.md) - Use pronounceable names
 - [`name-searchable`](name-searchable.md) - Use searchable names
 - [`name-avoid-encodings`](name-avoid-encodings.md) - Avoid encodings in names
-- [`name-class-noun`](name-class-noun.md) - Use domain names for types
+- [`name-class-noun`](name-class-noun.md) - Use noun phrases for class names
 - [`name-method-verb`](name-method-verb.md) - Use verb phrases for method names
 
 ### 2. Functions (CRITICAL)
 
-- [`func-small`](func-small.md) - Keep cohesive functions understandable
+- [`func-small`](func-small.md) - Keep functions small
 - [`func-one-thing`](func-one-thing.md) - Functions should do one thing
 - [`func-abstraction-level`](func-abstraction-level.md) - Maintain one level of abstraction
 - [`func-minimize-arguments`](func-minimize-arguments.md) - Minimize function arguments
@@ -64,14 +63,14 @@ The index keeps upstream ordering and impact labels for traceability. Correctnes
 - [`err-write-try-catch-first`](err-write-try-catch-first.md) - Design failure paths first
 - [`err-provide-context`](err-provide-context.md) - Provide context with exceptions
 - [`err-define-by-caller-needs`](err-define-by-caller-needs.md) - Define exceptions by caller needs
-- [`err-avoid-null`](err-avoid-null.md) - Make absence explicit
+- [`err-avoid-null`](err-avoid-null.md) - Make absence and empty results explicit
 
 ### 6. Objects and Data Structures (MEDIUM-HIGH)
 
 - [`obj-data-abstraction`](obj-data-abstraction.md) - Hide data behind abstractions
 - [`obj-data-object-asymmetry`](obj-data-object-asymmetry.md) - Understand data/object anti-symmetry
-- [`obj-law-of-demeter`](obj-law-of-demeter.md) - Respect object boundaries rather than count dots
-- [`obj-avoid-hybrids`](obj-avoid-hybrids.md) - Protect invariants; keep useful value types
+- [`obj-law-of-demeter`](obj-law-of-demeter.md) - Follow the Law of Demeter
+- [`obj-avoid-hybrids`](obj-avoid-hybrids.md) - Avoid hybrid data-object structures
 - [`obj-dto`](obj-dto.md) - Use DTOs for data transfer
 
 ### 7. Boundaries (MEDIUM-HIGH)
@@ -99,5 +98,3 @@ The index keeps upstream ordering and impact labels for traceability. Correctnes
 
 - [`emerge-simple-design`](emerge-simple-design.md) - Follow the four rules of simple design
 - [`emerge-expressiveness`](emerge-expressiveness.md) - Maximize expressiveness
-
-See [section definitions](_sections.md) for the retained category boundaries.
