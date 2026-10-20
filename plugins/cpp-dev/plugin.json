@@ -1,10 +1,19 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "cpp-dev",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Two independent C++ skills: upstream Clean Code principles with C++ examples, and C++ language/library guidelines.",
   "author": {
     "name": "James Gray"
   },
-  "repository": "https://github.com/expiracy/vibe-coding"
+  "repository": "https://github.com/expiracy/vibe-coding",
+  "extensions": {
+    "com.openai": {
+      "hooks": "./hooks/codex.json",
+      "interface": {
+        "displayName": "C++ Development",
+        "shortDescription": "Upstream Clean Code in C++, plus separate C++ guidelines."
+      }
+    }
+  }
 }

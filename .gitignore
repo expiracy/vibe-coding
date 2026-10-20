@@ -7,3 +7,5 @@ build/
 *.synctex.gz
 *.fdb_latexmk
 *.fls
+__pycache__/
+*.py[cod]

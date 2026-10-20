@@ -1,0 +1,11 @@
+{
+  "plugin": "cpp-dev",
+  "skills": {
+    "clean-code": [
+      "cpp"
+    ],
+    "cpp-guidelines": [
+      "cpp"
+    ]
+  }
+}

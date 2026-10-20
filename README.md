@@ -120,6 +120,19 @@ Canon TDD remains the separate implementation loop. Test strategy helps choose
 coverage; TDD implements one selected scenario at a time. Existing frameworks and
 project conventions govern the actual checks, with no fixed test ratios.
 
+## Automatic skill context
+
+The plugins include context-loading hooks for Codex and Claude Code. Relevant main
+skill bodies load from task hints or source/document reads and edits, then remain
+quiet on repeated operations. Active bodies are restored after compaction/resume;
+detailed references stay on demand. This includes test strategy as well as TDD.
+
+Python 3.9+ with a `python3` command is required for the hooks. After updating and
+restarting, review/trust the Codex hook definitions through `/hooks`; installation
+does not automatically trust them. See the
+[loading policy, setup and limitations](docs/skill-context-hooks.md). The skills
+remain usable in hosts without these hook adapters.
+
 ## Update or develop plugins
 
 Refresh the marketplace with `codex plugin marketplace upgrade vibe-coding` or

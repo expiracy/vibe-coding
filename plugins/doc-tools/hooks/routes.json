@@ -1,0 +1,11 @@
+{
+  "plugin": "doc-tools",
+  "skills": {
+    "text-writing": [
+      "prose"
+    ],
+    "uml-diagrams": [
+      "diagram"
+    ]
+  }
+}

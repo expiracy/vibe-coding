@@ -1,6 +1,6 @@
 {
   "name": "doc-tools",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Write, edit, and review prose and explanatory documents, and create consistent LaTeX/TikZ UML diagrams.",
   "author": {
     "name": "James Gray"
@@ -10,5 +10,6 @@
   "interface": {
     "displayName": "Documentation Tools",
     "shortDescription": "Write, edit, and review prose and explanatory documents, and create consistent LaTeX/TikZ UML diagrams."
-  }
+  },
+  "hooks": "./hooks/codex.json"
 }

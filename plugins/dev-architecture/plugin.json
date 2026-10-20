@@ -1,10 +1,19 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "dev-architecture",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Clean Architecture boundaries, dependency direction and policy isolation, with C++ and Java examples.",
   "author": {
     "name": "James Gray"
   },
-  "repository": "https://github.com/expiracy/vibe-coding"
+  "repository": "https://github.com/expiracy/vibe-coding",
+  "extensions": {
+    "com.openai": {
+      "hooks": "./hooks/codex.json",
+      "interface": {
+        "displayName": "Development Architecture",
+        "shortDescription": "Clean Architecture boundaries and dependency direction."
+      }
+    }
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "plugin": "dev-workflow",
+  "skills": {
+    "canon-tdd": [
+      "behavior"
+    ],
+    "test-strategy": [
+      "verification"
+    ]
+  }
+}
