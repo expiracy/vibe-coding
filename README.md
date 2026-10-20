@@ -8,7 +8,7 @@ agents. Codex and Claude Code can install them globally for your user.
 | [cpp-dev](plugins/cpp-dev/) | [clean-code](plugins/cpp-dev/skills/clean-code/SKILL.md), [cpp-guidelines](plugins/cpp-dev/skills/cpp-guidelines/SKILL.md) | Upstream Clean Code illustrated in C++, plus separate C++ language/library guidance |
 | [java-dev](plugins/java-dev/) | [clean-code](plugins/java-dev/skills/clean-code/SKILL.md) | The same upstream Clean Code rules illustrated in Java |
 | [dev-architecture](plugins/dev-architecture/) | [clean-architecture](plugins/dev-architecture/skills/clean-architecture/SKILL.md) | Policy boundaries, dependency direction and infrastructure isolation |
-| [dev-workflow](plugins/dev-workflow/) | [canon-tdd](plugins/dev-workflow/skills/canon-tdd/SKILL.md) | Scenario-driven Canon TDD |
+| [dev-workflow](plugins/dev-workflow/) | [canon-tdd](plugins/dev-workflow/skills/canon-tdd/SKILL.md), [test-strategy](plugins/dev-workflow/skills/test-strategy/SKILL.md) | Scenario-driven TDD and risk-based verification coverage |
 | [doc-tools](plugins/doc-tools/) | [text-writing](plugins/doc-tools/skills/text-writing/SKILL.md), [uml-diagrams](plugins/doc-tools/skills/uml-diagrams/SKILL.md) | Clear prose and focused diagrams: sequence, object, class, architecture/component, and activity/workflow |
 
 Each plugin contains a portable `plugin.json`, Codex and Claude compatibility
@@ -107,6 +107,18 @@ Use it for module boundaries, dependency direction and separation of business
 policy from infrastructure. Clean Code covers code-level clarity; C++ guidelines
 cover language/library choices; Canon TDD covers the development cycle. Apply
 only the skills relevant to the task. Simple work may need no new layers.
+
+## Test strategy
+
+`dev-workflow:test-strategy` chooses useful verification from a change's behavior
+and risks: direct tests, integration and contract checks, critical end-to-end
+journeys and relevant failure cases. Supporting references cover dependency
+realism, partial success, independent expectations and honest execution reports.
+The main skill stays concise and provider-neutral.
+
+Canon TDD remains the separate implementation loop. Test strategy helps choose
+coverage; TDD implements one selected scenario at a time. Existing frameworks and
+project conventions govern the actual checks, with no fixed test ratios.
 
 ## Update or develop plugins
 

@@ -1,7 +1,7 @@
 {
   "name": "dev-workflow",
-  "version": "1.0.0",
-  "description": "Scenario-driven Canon TDD for implementing features and fixing bugs.",
+  "version": "1.1.0",
+  "description": "Canon TDD and risk-based test strategy for implementation and verification.",
   "author": {
     "name": "James Gray"
   },
