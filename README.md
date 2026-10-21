@@ -128,8 +128,10 @@ quiet on repeated operations. Active bodies are restored after compaction/resume
 detailed references stay on demand. This includes test strategy as well as TDD.
 
 Python 3.9+ with a `python3` command is required for the hooks. After updating and
-restarting, review/trust the Codex hook definitions through `/hooks`; installation
-does not automatically trust them. See the
+restarting, check `/hooks` in Codex. If no plugin hooks appear, run
+`python3 tools/skill-context/install_codex_hooks.py --apply` from this checkout.
+Review/trust the specific definitions through `/hooks`; installation alone does
+not grant trust. See the
 [loading policy, setup and limitations](docs/skill-context-hooks.md). The skills
 remain usable in hosts without these hook adapters.
 

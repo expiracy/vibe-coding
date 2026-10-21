@@ -238,5 +238,14 @@ class SkillContextTest(unittest.TestCase):
         self.assertIn("# Unique C++ guidance", restored)
         self.assertEqual(self.hook(transcript_path=None), "")
 
+    def test_partial_tex_edit_keeps_existing_diagram_classification(self):
+        self.add_skill("uml-diagrams", ["diagram"])
+        self.add_skill("text-writing", ["prose"])
+        path = self.project / "diagram.tex"
+        path.write_text(r"\begin{tikzpicture}\node{first};\end{tikzpicture}")
+        payload = {"tool_name": "Edit", "tool_input": {"file_path": str(path), "old_string": "first", "new_string": "second"}}
+        self.assertIn("# Guidance uml-diagrams", self.hook(skill="uml-diagrams", **payload))
+        self.assertEqual(self.hook(skill="text-writing", **payload), "")
+
 if __name__ == "__main__":
     unittest.main()

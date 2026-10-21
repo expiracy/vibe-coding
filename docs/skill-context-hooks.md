@@ -37,7 +37,8 @@ that context. Arbitrary projects can still use explicit skill invocation.
 
 The plugin data directory stores small JSON cache entries keyed by conversation,
 working directory, skill and available agent identity. Transcript filenames are
-not part of the key because they may be omitted or rotated during compaction. A body is emitted
+not part of the key because they may be omitted or rotated during compaction.
+A body is emitted
 once until compaction/resume or a change to the body/installed source path. Parallel
 calls coordinate with a lock and atomic cache replacement. Prompts and source
 contents are not written to the cache; only routing hints and body hashes are.
@@ -54,7 +55,7 @@ has already been prepared. Prompt-time loading and early source-read hooks are
 therefore preferred. These advisory hooks do not block edits, rewrite tool input,
 execute tests, or claim that a pending edit already followed newly supplied rules.
 
-Agent IDs are included when the host supplies them. A host that shares both the
+Agent IDs are included when the host supplies them. A host that shares the
 session identity across agents without providing an agent ID cannot
 support fully independent per-agent deduplication through this payload alone.
 
@@ -70,6 +71,34 @@ directory is for development only and is not needed by installed plugins.
   `hooks/codex.json`. Open `/hooks` and review/trust the new hook definitions.
   Installation alone does not grant hook trust. If hooks were explicitly disabled,
   enable them in the client's configuration before relying on context injection.
+
+### Codex compatibility registration
+
+Some installed Codex builds expose the skills but do not discover bundled plugin
+hooks. Verify with `/hooks`; installed plugins alone are not evidence that hooks
+are active. From this checkout, run:
+
+```sh
+python3 tools/skill-context/install_codex_hooks.py
+python3 tools/skill-context/install_codex_hooks.py --apply
+```
+
+The first command previews. The second preserves other hooks, backs up an existing
+user `hooks.json` and registers only missing `vibe-coding` loaders in the supported
+user-level hook configuration. It resolves installed cache versions and supplies
+a private data directory explicitly. It does not change hook trust or folder
+trust. Review/trust the specific entries through Codex's normal `/hooks` interface.
+
+Re-run after plugin updates, enables or disables. Compatibility hooks are user
+hooks, so disabling a plugin alone does not remove those registrations; re-run
+setup or disable its named entries in `/hooks`. When the installed harness reports
+all four native events for a plugin, setup removes its compatibility entries to
+avoid keeping two sources. This installer currently targets POSIX shells.
+
+A partial `.tex` edit is classified using both its replacement fragment and a
+bounded prefix of the existing file, so editing a label preserves TikZ routing.
+`PreCompact` handlers deliberately omit `additionalContextLimit`: that event only
+invalidates local emission markers and cannot return model context in Codex.
 
 Other hosts can adapt the event envelope and provide a writable plugin-data
 location; skill instructions themselves remain provider-neutral. A host without

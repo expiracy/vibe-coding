@@ -17,12 +17,15 @@ def configuration(host):
     handler = {'type': 'command', 'command': 'python3 "${' + variable + '}/hooks/skill_context.py"', 'timeout': 5}
     if host == 'codex':
         handler.update({'additionalContextLimit': 4096, 'statusMessage': 'Loading relevant skill context'})
-    return {'hooks': {
+    result = {'hooks': {
         'UserPromptSubmit': [{'hooks': [handler]}],
         'PreToolUse': [{'matcher': '^(Read|Edit|Write|MultiEdit|Bash|apply_patch|exec_command|shell_command|read_file|write_file|edit_file|mcp__.*)$', 'hooks': [handler]}],
         'PreCompact': [{'hooks': [handler]}],
         'SessionStart': [{'matcher': '^(startup|resume|clear|compact|fork)$', 'hooks': [handler]}],
     }}
+    if host == 'codex':
+        result['hooks']['PreCompact'][0]['hooks'] = [{key: value for key, value in handler.items() if key != 'additionalContextLimit'}]
+    return result
 
 
 def sync(repo, check=False):

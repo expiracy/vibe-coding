@@ -34,7 +34,6 @@
             "type": "command",
             "command": "python3 \"${PLUGIN_ROOT}/hooks/skill_context.py\"",
             "timeout": 5,
-            "additionalContextLimit": 4096,
             "statusMessage": "Loading relevant skill context"
           }
         ]

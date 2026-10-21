@@ -162,7 +162,8 @@ def cpp_header(path, state, cwd):
     for parent in [path.parent] + list(path.parents)[:3]:
         cmake = parent / 'CMakeLists.txt'
         if cmake.is_file():
-            text = cmake.read_text(encoding='utf-8', errors='replace')[:16384]
+            with cmake.open(encoding='utf-8', errors='replace') as source:
+                text = source.read(16384)
             text = re.sub(r'#[^\n]*', '', text)
             if re.search(r'\b(CXX|CXX_STANDARD|CMAKE_CXX_STANDARD|cxx_std_\d+)\b', text):
                 return True
@@ -207,8 +208,9 @@ def file_signals(event, state):
             recognized = True
         if suffix == '.tex':
             sample = content
-            if not sample and path.is_file():
-                sample = path.read_text(encoding='utf-8', errors='replace')[:16384]
+            if path.is_file():
+                with path.open(encoding='utf-8', errors='replace') as source:
+                    sample += '\n' + source.read(16384)
             flags.add('diagram' if re.search(r'\\(?:begin\{tikzpicture\}|usetikzlibrary|tikzset)', sample) else 'prose')
             recognized = True
     return flags if recognized else None

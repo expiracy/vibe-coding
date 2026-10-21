@@ -58,6 +58,11 @@ class PackagedHookTest(unittest.TestCase):
                     self.assertEqual(restored["hookSpecificOutput"]["additionalContext"], context)
                     self.assertEqual(run(payload), {})
 
+    def test_codex_precompact_does_not_set_context_output_limit(self):
+        for name in ("cpp-dev", "java-dev", "dev-architecture", "dev-workflow", "doc-tools"):
+            config = json.loads((REPO / "plugins" / name / "hooks/codex.json").read_text())
+            self.assertNotIn("additionalContextLimit", config["hooks"]["PreCompact"][0]["hooks"][0])
+
     def test_generated_bundles_match_canonical_source(self):
         result = subprocess.run(["python3", str(REPO / "tools/skill-context/sync.py"), "--check"], text=True, capture_output=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

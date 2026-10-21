@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "doc-tools",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Write, edit, and review prose and explanatory documents, and create consistent LaTeX/TikZ UML diagrams.",
   "author": {
     "name": "James Gray"
