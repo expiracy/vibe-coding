@@ -3,8 +3,8 @@ name: cpp-guidelines
 description: Apply recommended C++ language and library practices for resources, pointer/reference contracts, lifetimes, object semantics, initialization, constness, parameter passing, type safety, and error mechanisms. Use when making or reviewing these C++ implementation choices.
 license: MIT
 metadata:
-  version: "1.0.0"
-  cpp-baseline: "17"
+  version: "1.1.0"
+  cpp-baseline: "20"
 ---
 
 # C++ Guidelines
@@ -21,8 +21,11 @@ language standard, and the project's contracts govern these choices.
 - Preserve naming, formatter configuration, header/source layout, public APIs,
   ABI, thread-safety guarantees, and required performance. Make the smallest
   complete change; avoid unrelated modernization.
-- Examples target C++17. Use `std::span`, ranges, concepts, or `std::jthread`
-  only with C++20 support, and `std::expected` only with C++23 support.
+- Target C++20 for new code and examples. Use `std::span`, ranges, concepts
+  and `std::jthread` where their contracts fit and the toolchain supports them.
+  Do not assume C++23 facilities such as `std::expected` are available.
+  Respect an explicitly older project baseline; flag the constraint rather than
+  silently changing the build standard.
 - Read the supporting reference relevant to the decision. Do not load every
   reference or add a dependency merely to express a guideline.
 

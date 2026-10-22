@@ -8,8 +8,8 @@ The original MIT licence remains in LICENSE.
 
 The recommendations paraphrase the official
 [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines),
-consulted on 19 October 2026. Rule IDs identify relevant sources. Examples retain
-the C++17 baseline; a project's declared standard and contracts still govern.
+consulted on 19 October 2026. Rule IDs identify relevant sources. Examples target
+C++20; a project's declared standard and contracts still govern.
 
 The resource example originated in the user's C++ adaptation of
 [expiracy/clean-code](https://github.com/expiracy/clean-code) at commit

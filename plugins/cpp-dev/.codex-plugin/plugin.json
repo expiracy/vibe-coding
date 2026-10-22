@@ -1,6 +1,6 @@
 {
   "name": "cpp-dev",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Two independent C++ skills: upstream Clean Code principles with C++ examples, and C++ language/library guidelines.",
   "author": {
     "name": "James Gray"

@@ -85,9 +85,9 @@ at commit `cf93c57cac89d6fc3e4194686000411567f5caf3`, upstream version 1.0.7. Th
 ten-category collection and licence, with a concise main file and detailed
 references. Each variant records its source and adaptation notes.
 
-- `cpp-dev:clean-code` uses C++17 examples of the upstream principles.
+- `cpp-dev:clean-code` uses C++20 examples of the upstream principles.
 - `java-dev:clean-code` retains/adapts the upstream Java examples for Java 11.
-- `cpp-dev:cpp-guidelines` remains separate and unchanged: resources, pointers,
+- `cpp-dev:cpp-guidelines` remains separate: resources, pointers,
   lifetimes, object semantics, interfaces and other C++ implementation policies.
 
 Choose the Clean Code variant for the project's language. A C++ task can also use
@@ -99,7 +99,7 @@ downstream fork or on each other.
 
 `dev-architecture:clean-architecture` is shared across languages. It adapts the
 same upstream repository's 42-rule architecture collection, with a concise main
-file, detailed references and matching C++17/Java 11 boundary examples. The
+file, detailed references and matching C++20/Java 11 boundary examples. The
 [source notes](plugins/dev-architecture/skills/clean-architecture/UPSTREAM.md)
 record the pinned revision, licence and corrections.
 

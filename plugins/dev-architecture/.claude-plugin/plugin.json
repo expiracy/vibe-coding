@@ -1,6 +1,6 @@
 {
   "name": "dev-architecture",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Clean Architecture boundaries, dependency direction and policy isolation, with C++ and Java examples.",
   "author": {
     "name": "James Gray"

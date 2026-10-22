@@ -3,8 +3,8 @@ name: clean-code
 description: Apply the upstream Clean Code principles to C++ code when writing, reviewing, or refactoring names, functions, comments, formatting, errors, objects, boundaries, classes, and tests. Uses C++ examples; focuses on design and readability rather than language implementation policy.
 license: MIT
 metadata:
-  version: "1.1.0"
-  language-baseline: "C++17"
+  version: "1.2.0"
+  language-baseline: "C++20"
 ---
 
 # Clean Code for C++
@@ -32,7 +32,8 @@ for the current decision through the [rule index](references/clean-code-index.md
 
 ## Use the C++ examples appropriately
 
-Examples target C++17. Follow the project's declared version, public
+Target C++20 for new code and examples. Respect an explicitly older project
+baseline without silently changing its build standard. Follow public
 interfaces, conventions and error policy; do not modernize unrelated code or
 introduce a framework to reproduce an illustration.
 

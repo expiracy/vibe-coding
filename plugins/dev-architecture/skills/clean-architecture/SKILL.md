@@ -3,7 +3,7 @@ name: clean-architecture
 description: Design or review module boundaries, dependency direction, entities, use cases and infrastructure isolation using Clean Architecture. Use for architecture decisions and incremental boundary refactoring; ordinary naming or function cleanup belongs to Clean Code.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Clean Architecture
@@ -37,7 +37,7 @@ Protect business policy from delivery mechanisms and infrastructure. Adapt the
 
 - Start with [dependency direction](references/dep-inward-only.md) or
   [boundary costs](references/bound-boundary-cost-awareness.md) for placement decisions.
-- Use the [C++17 example](references/cpp-example.md) or
+- Use the [C++20 example](references/cpp-example.md) or
   [Java 11 example](references/java-example.md) for policy, ports, adapters and wiring.
   The two examples express the same architecture. Their limits, data and error
   mechanisms are illustrations, not application requirements.

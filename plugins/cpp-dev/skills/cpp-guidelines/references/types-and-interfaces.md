@@ -34,7 +34,7 @@ operation rather than mechanically replacing parentheses with braces.
 Pass cheap input values by value, larger read-only inputs by `const&`, and
 required in-out objects by mutable reference. Prefer a returned value or result
 record to unrelated output parameters. Choose a container reference or bounded
-view according to the project's version and the caller's contract. A view does
+view such as C++20 `std::span` according to the caller's contract. A view does
 not extend storage lifetime; asynchronous or queued work needs a valid lifetime
 contract or an independent value. See [the pointer reference](pointers-and-lifetimes.md).
 
@@ -70,6 +70,6 @@ Retain legitimate local naming conventions, but do not introduce reserved names.
 In tests, ordinary `assert` can be disabled by `NDEBUG`. Use the existing test
 framework's checks or explicit failure handling when verification must also run
 in that build mode. Match facilities to the declared standard: the examples in
-this skill use C++17; later-standard facilities need explicit project support.
+this skill use C++20; later-standard facilities need explicit project support.
 
 Reference: [reserved identifiers](https://en.cppreference.com/w/cpp/language/identifiers).

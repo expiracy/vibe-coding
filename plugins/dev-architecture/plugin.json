@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "dev-architecture",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Clean Architecture boundaries, dependency direction and policy isolation, with C++ and Java examples.",
   "author": {
     "name": "James Gray"

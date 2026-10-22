@@ -8,7 +8,7 @@ Downloaded reference files were checked against their Git blob hashes at this
 revision. Each rule links to its immutable upstream original.
 
 The main skill is a concise router. The original index is a reference; additional
-C++17 and Java 11 examples illustrate the same small workflow. Other upstream
+C++20 and Java 11 examples illustrate the same small workflow. Other upstream
 examples remain contextual excerpts, including application/framework types.
 They are not complete applications or dependency installation instructions.
 

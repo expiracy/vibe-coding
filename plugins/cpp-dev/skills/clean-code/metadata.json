@@ -1,9 +1,9 @@
 {
   "name": "clean-code",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "language": "C++",
-  "example_baseline": "C++17",
+  "example_baseline": "C++20",
   "upstream_repository": "https://github.com/pproenca/dot-skills",
   "upstream_commit": "cf93c57cac89d6fc3e4194686000411567f5caf3",
   "upstream_path": "skills/.experimental/clean-code",

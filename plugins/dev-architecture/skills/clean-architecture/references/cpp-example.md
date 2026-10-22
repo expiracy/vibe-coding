@@ -15,7 +15,8 @@ identity, authorization and consistency contracts.
 
 Read the other language's [equivalent example](java-example.md)
 only when comparing implementations. These examples use exceptions and simple
-ports for clarity; preserve your project's language version and error policy.
+ports for clarity and target C++20; preserve your project's declared language
+version and error policy.
 
 ### `domain/order.hpp`
 
@@ -164,7 +165,7 @@ Save the files at the paths above inside a scratch folder. With a compatible
 compiler installed, run from that folder:
 
 ```sh
-c++ -std=c++17 -Wall -Wextra -Werror -I . main.cpp -o checkout
+c++ -std=c++20 -Wall -Wextra -Werror -I . main.cpp -o checkout
 ./checkout
 ```
 

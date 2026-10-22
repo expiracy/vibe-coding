@@ -5,7 +5,7 @@ one focused before/after pair, the C++ contract and useful counterexamples, and
 the original source citation. Use qualitative impact descriptions unless a
 measurement directly supports a numerical claim. Do not copy book passages.
 
-Each cpp block must be a self-contained C++17 translation unit. Label a newer
+Each cpp block must be a self-contained C++20 translation unit. Label a newer
 standard explicitly and update validation if that standard is intentionally used.
 
 For example, a rule about ownership can contrast ambiguous allocation with an

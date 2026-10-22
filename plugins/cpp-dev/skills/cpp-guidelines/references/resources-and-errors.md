@@ -45,7 +45,7 @@ ReadResult read_first_byte(const char* path) {
 }
 ```
 
-This C++17 example also works with exceptions disabled. It distinguishes open
+This C++20 example also works with exceptions disabled. It distinguishes open
 failure, read failure and success without discarding the cleanup contract.
 
 ## Error channels and guarantees
@@ -68,7 +68,7 @@ cleanup alone cannot reliably report it.
 
 ## Optional values versus borrowed objects
 
-Use `std::optional<T>` for an optional value when appropriate. C++17 does not
+Use `std::optional<T>` for an optional value when appropriate. C++20 does not
 provide `std::optional<T&>`; a documented pointer or
 `optional<reference_wrapper<T>>` can describe a borrow. Such a wrapper does not
 extend lifetime. Use a copied value or stable identifier when the lifetime

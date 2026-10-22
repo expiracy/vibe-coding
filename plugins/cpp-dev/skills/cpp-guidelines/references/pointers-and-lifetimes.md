@@ -103,10 +103,10 @@ Sources: [R.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-
 
 ## Ranges and bounds
 
-Use a container reference or a supported view that carries the element count.
-`std::span` requires C++20; in C++17 reuse a project view or a suitable container
-reference. At an unavoidable pointer-and-size boundary, validate the pair and
-indices before accessing data. Keep pointer arithmetic local to that boundary.
+Use a container reference or `std::span<T>` for a borrowed contiguous range
+that carries its element count. Use a suitable range or existing project view
+for non-contiguous data or other contracts. At an unavoidable pointer-and-size
+boundary, validate the pair and indices before accessing data. Keep pointer arithmetic local to that boundary.
 
 A span borrows its storage. `std::span` carrying a length does not guarantee
 bounds-checked indexing; validate dynamic indices or use checked operations
@@ -118,7 +118,7 @@ Sources: [F.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-
 
 ## Example: distinct borrowing and ownership contracts
 
-**Correct (C++17, with checks that remain active under NDEBUG):**
+**Correct (C++20, with checks that remain active under NDEBUG):**
 
 ```cpp
 #include <memory>

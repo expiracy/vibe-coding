@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "upstream": {
     "repository": "https://github.com/pproenca/dot-skills",
     "path": "skills/.experimental/clean-architecture",
@@ -9,7 +9,7 @@
   "ruleCount": 42,
   "categories": 8,
   "exampleBaselines": [
-    "C++17",
+    "C++20",
     "Java 11"
   ]
 }
