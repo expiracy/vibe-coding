@@ -14,7 +14,9 @@ C++20; a project's declared standard and contracts still govern.
 The resource example originated in the user's C++ adaptation of
 [expiracy/clean-code](https://github.com/expiracy/clean-code) at commit
 `e9a84cc953a73588f2d180b86ac7a2940af62a93`. Its implementation contracts now live
-here rather than in the language-independent design skill.
+here rather than in the language-independent design skill. Only its focused RAII
+example remains; the broad pointer demonstration was reduced to a weak-lock
+lifetime example.
 
 This is a focused independent guide, not an official endorsement, a complete
 copy of the Core Guidelines, or a guarantee of language conformance.

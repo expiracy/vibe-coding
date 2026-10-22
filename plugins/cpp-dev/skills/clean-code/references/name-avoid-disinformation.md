@@ -9,38 +9,6 @@ tags: name, disinformation, misleading, types
 
 Avoid names that encode false information. Do not refer to a grouping as a "List" unless it is actually a List. Avoid names that vary in small ways that are hard to distinguish.
 
-**Incorrect (misleading type information):**
-
-```cpp
-#include <map>
-#include <string>
-
-namespace example {
-struct Account { int balance{}; };
-struct State {
-    std::map<std::string, Account> accountList; // It is a map, not a list.
-    std::string XYZControllerForEfficientHandlingOfStrings;
-    std::string XYZControllerForEfficientStorageOfStrings;
-};
-}
-```
-
-**Correct (accurate and distinguishable):**
-
-```cpp
-#include <map>
-#include <string>
-
-namespace example {
-struct Account { int balance{}; };
-struct State {
-    std::map<std::string, Account> accountsByName;
-    std::string stringProcessingController;
-    std::string stringStorageController;
-};
-}
-```
-
 Reference: [Clean Code, Chapter 2: Meaningful Names](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)
 
 Upstream rule: [name-avoid-disinformation](https://github.com/pproenca/dot-skills/blob/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code/references/name-avoid-disinformation.md).

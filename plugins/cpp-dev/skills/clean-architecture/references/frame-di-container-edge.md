@@ -9,26 +9,7 @@ tags: frame, dependency-injection, container, composition
 
 Use a DI container, if one exists, only at composition. Explicit function or constructor parameters expose dependencies without a service locator inside policy code.
 
-**Incorrect:**
-
-```cpp
-struct Orders { void save(int); };
-namespace container { Orders& resolve_orders(); }
-void place(int id) { container::resolve_orders().save(id); }
-```
-
-**Better for this contract:**
-
-```cpp
-struct Orders { void save(int); };
-void place(Orders& orders, int id) { orders.save(id); }
-namespace container { Orders& resolve_orders(); }
-void start() { place(container::resolve_orders(), 7); }
-```
-
 Ordinary C++ construction is often sufficient. Do not introduce a DI framework or an abstract interface solely for wiring.
-
-C++20 examples are independent contextual translation units; declarations of fictional external APIs are illustrative. Compile for syntax separately; they are not complete integrations.
 
 Reference: [Composition Root Pattern](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
 

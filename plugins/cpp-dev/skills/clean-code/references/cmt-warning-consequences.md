@@ -9,28 +9,6 @@ tags: cmt, warning, consequences, safety
 
 Comments that warn other programmers about certain consequences are valuable. They prevent others from making mistakes that have non-obvious impacts.
 
-**Incorrect (no warning about hidden dangers):**
-
-```cpp
-#include <vector>
-
-namespace example {
-void removeSelectedRecords(std::vector<int>& records) { records.clear(); }
-}
-```
-
-**Correct (warnings prevent mistakes):**
-
-```cpp
-#include <vector>
-
-namespace example {
-// WARNING: This operation permanently discards the records supplied to it.
-// Copy them first if the caller needs an undo operation.
-void removeSelectedRecords(std::vector<int>& records) { records.clear(); }
-}
-```
-
 **Good warnings include:**
 - Thread-safety concerns
 - Performance implications

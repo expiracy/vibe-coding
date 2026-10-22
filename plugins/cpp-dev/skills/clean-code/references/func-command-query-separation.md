@@ -7,64 +7,8 @@ tags: func, cqs, command, query, separation
 
 ## Separate Commands from Queries
 
-Functions should either do something or answer something, but not both. Either your function changes the state of an object, or it returns information about that object.
-
-**Incorrect (command and query mixed):**
-
-```cpp
-#include <map>
-#include <string>
-
-namespace example {
-class Settings {
-    std::map<std::string, std::string> attributes;
-public:
-    bool set(const std::string& attribute, const std::string& value) {
-        attributes[attribute] = value;
-        return true; // The name does not explain the result.
-    }
-};
-}
-```
-
-**Correct (separated command and query):**
-
-```cpp
-#include <map>
-#include <string>
-
-namespace example {
-class Settings {
-    std::map<std::string, std::string> attributes;
-public:
-    bool attributeExists(const std::string& attribute) const {
-        return attributes.find(attribute) != attributes.end();
-    }
-    void setAttribute(const std::string& attribute, const std::string& value) {
-        attributes[attribute] = value;
-    }
-};
-}
-```
-
-**Alternative (return new state for immutable design):**
-
-```cpp
-#include <map>
-#include <string>
-
-namespace example {
-class Settings {
-    std::map<std::string, std::string> attributes;
-public:
-    Settings withAttribute(const std::string& attribute, const std::string& value) const {
-        Settings updated = *this;
-        updated.attributes[attribute] = value;
-        return updated;
-    }
-};
-}
-```
+Separate queries from unrelated state changes, and make a command's effects and
+result clear in its contract.
 
 The separation makes ordinary single-threaded usage easier to read. A command
 may return its natural result; do not split checking and updating when the

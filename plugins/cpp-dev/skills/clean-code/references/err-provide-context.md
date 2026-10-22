@@ -9,32 +9,6 @@ tags: err, context, messages, debugging
 
 Each exception should provide enough context to determine the source and location of an error. Create informative error messages that describe the operation that failed and the type of failure.
 
-**Incorrect (no context):**
-
-```cpp
-#include <stdexcept>
-#include <string>
-
-namespace example {
-void requireUser(bool found, const std::string&) {
-    if (!found) throw std::runtime_error("Not found");
-}
-}
-```
-
-**Correct (rich context):**
-
-```cpp
-#include <stdexcept>
-#include <string>
-
-namespace example {
-void requireUser(bool found, const std::string& userId) {
-    if (!found) throw std::runtime_error("Loading user " + userId + ": user not found");
-}
-}
-```
-
 **Include in exception messages:**
 - What operation was being attempted
 - What data was involved (IDs, names, quantities)

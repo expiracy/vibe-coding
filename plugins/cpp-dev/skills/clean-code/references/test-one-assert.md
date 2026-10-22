@@ -9,56 +9,15 @@ tags: test, assert, concept, focus
 
 Each test should verify a single concept or behavior. Multiple assertions are fine when they all verify different aspects of that one concept. What you want to avoid is testing unrelated concerns in a single test.
 
-**Incorrect (multiple unrelated concepts in one test):**
+For a user-creation test, these checks describe one returned result. Use the
+project's assertion API; the API names below are illustrative.
 
 ```cpp
-#include <stdexcept>
-#include <string>
-#include <vector>
-
-namespace example {
-void require(bool condition, const std::string& message) {
-    if (!condition) throw std::logic_error(message);
-}
-
-struct User { std::string name; std::string email; bool active{}; std::vector<int> orders; };
-User createUser(const std::string& name, const std::string& email) { return {name, email, true, {}}; }
-
-
-void checksUnrelatedConcerns() {
-    const auto user = createUser("Bob", "bob@example.com");
-    require(user.name == "Bob", "user name");
-    require(std::string("report.txt").size() == 10, "unrelated report formatting");
-}
-}
+const auto user = createUser("Bob", "bob@example.com");
+CHECK(user.name == "Bob");
+CHECK(user.email == "bob@example.com");
+CHECK(user.active);
 ```
-
-**Correct (one concept per test, multiple assertions are fine):**
-
-```cpp
-#include <stdexcept>
-#include <string>
-#include <vector>
-
-namespace example {
-void require(bool condition, const std::string& message) {
-    if (!condition) throw std::logic_error(message);
-}
-
-struct User { std::string name; std::string email; bool active{}; std::vector<int> orders; };
-User createUser(const std::string& name, const std::string& email) { return {name, email, true, {}}; }
-
-
-void returnedUserHasTheSuppliedIdentity() {
-    const auto user = createUser("Bob", "bob@example.com");
-    require(user.name == "Bob", "name");
-    require(user.email == "bob@example.com", "email");
-    require(user.active, "active status");
-}
-}
-```
-
-The first test has three assertions — that's fine because they all verify a single concept: "the returned user object is correctly constructed." Each test can be understood from its name alone.
 
 **When NOT to split tests:**
 - When multiple assertions verify the same behavior from different angles (like checking all fields of a returned object), keep them together — splitting creates duplicate setup and slower test suites.

@@ -9,42 +9,6 @@ tags: cmt, intent, why, rationale
 
 Good comments explain WHY, not WHAT. The code already tells you what it does. Comments should explain the reasoning behind a decision that cannot be expressed in code.
 
-**Incorrect (narrating the code):**
-
-```cpp
-#include <algorithm>
-#include <vector>
-
-namespace example {
-struct Session { int createdAt{}; };
-
-
-void sortSessions(std::vector<Session>& sessions) {
-    // Sort the sessions.
-    std::sort(sessions.begin(), sessions.end(),
-        [](Session a, Session b) { return a.createdAt > b.createdAt; });
-}
-}
-```
-
-**Correct (explaining intent):**
-
-```cpp
-#include <algorithm>
-#include <vector>
-
-namespace example {
-struct Session { int createdAt{}; };
-
-
-void sortSessions(std::vector<Session>& sessions) {
-    // In this example, users expect their newest sessions first.
-    std::sort(sessions.begin(), sessions.end(),
-        [](Session a, Session b) { return a.createdAt > b.createdAt; });
-}
-}
-```
-
 **Good comment situations:**
 - Legal comments (copyright, license)
 - Explanation of intent or rationale

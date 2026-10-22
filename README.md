@@ -81,7 +81,7 @@ at commit `cf93c57cac89d6fc3e4194686000411567f5caf3`, upstream version 1.0.7. Th
 ten-category collection and licence, with a concise main file and detailed
 references. Each variant records its source and adaptation notes.
 
-- `cpp-dev:clean-code` uses C++20 examples of the upstream principles.
+- `cpp-dev:clean-code` gives concise C++20 guidance with examples only where useful.
 - `java-dev:clean-code` retains/adapts the upstream Java examples for Java 11.
 - `cpp-dev:cpp-guidelines` remains separate: resources, pointers,
   lifetimes, object semantics, interfaces and other C++ implementation policies.
@@ -94,8 +94,8 @@ downstream fork or on each other.
 ## Clean Architecture
 
 `cpp-dev:clean-architecture` adapts the upstream 42-rule collection to C++20.
-All code examples use C++; component layouts and CMake excerpts illustrate build
-boundaries. The main file is concise, with detailed references loaded on demand.
+Most rules are prose-only; a few focused C++20 and build examples clarify subtle
+contracts. The main file is concise, with detailed references loaded on demand.
 The [source notes](plugins/cpp-dev/skills/clean-architecture/UPSTREAM.md) record
 the pinned revision, licence and adaptation choices.
 

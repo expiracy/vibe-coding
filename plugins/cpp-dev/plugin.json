@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "cpp-dev",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Three independent C++20 skills: Clean Code principles, language/library guidelines and Clean Architecture.",
   "author": {
     "name": "James Gray"

@@ -9,28 +9,6 @@ tags: emerge, expressiveness, readability, maintenance
 
 The majority of the cost of a software project is in long-term maintenance. Write code for the reader, not the writer. The clearer the author can make the code, the less time others will spend understanding it.
 
-**Incorrect (clever but opaque):**
-
-```cpp
-
-namespace example {
-bool qualifies(int s, int n) { return s == 2 && n >= 10; }
-}
-```
-
-**Correct (clear and expressive):**
-
-```cpp
-
-namespace example {
-enum class CustomerStatus { ordinary, premium };
-bool qualifiesForVolumeDiscount(CustomerStatus status, int itemCount) {
-    constexpr int minimumVolumeItems = 10;
-    return status == CustomerStatus::premium && itemCount >= minimumVolumeItems;
-}
-}
-```
-
 **Techniques for expressiveness:**
 - Choose good names (the single most effective technique)
 - Keep functions and classes small and focused

@@ -9,47 +9,6 @@ tags: fmt, indentation, hierarchy, structure
 
 Indentation makes the scope hierarchy visible. Each level of indentation represents a nested scope. Never collapse short statements onto one line to save space.
 
-**Incorrect (collapsed structure):**
-
-```cpp
-#include <string>
-#include <vector>
-
-namespace example {
-struct CommentWidget {
-std::string text;
-std::string render() const { return text; }
-};
-int countValid(const std::vector<int>& values) { int count = 0; for (int value : values) { if (value > 0) { ++count; } } return count; }
-}
-```
-
-**Correct (proper indentation):**
-
-```cpp
-#include <string>
-#include <vector>
-
-namespace example {
-struct CommentWidget {
-    std::string text;
-
-    std::string render() const {
-        return text;
-    }
-};
-int countValid(const std::vector<int>& values) {
-    int count = 0;
-    for (int value : values) {
-        if (value > 0) {
-            ++count;
-        }
-    }
-    return count;
-}
-}
-```
-
 **Why maintain indentation?**
 - Visual scanning relies on indentation
 - Structure is immediately apparent

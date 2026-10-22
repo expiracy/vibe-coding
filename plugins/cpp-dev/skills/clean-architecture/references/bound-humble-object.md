@@ -9,27 +9,7 @@ tags: bound, humble-object, testing, boundaries
 
 Keep the hard-to-test device/UI/network edge small. Extract deterministic decisions into ordinary C++ operations; still test the real edge for its own contract.
 
-**Incorrect:**
-
-```cpp
-struct Screen { void draw(const char*); };
-void update(Screen& screen, bool overdue) {
-    if (overdue) screen.draw("Overdue"); else screen.draw("Current");
-}
-```
-
-**Better for this contract:**
-
-```cpp
-#include <string_view>
-std::string_view status_label(bool overdue) { return overdue ? "Overdue" : "Current"; }
-struct Screen { void draw(std::string_view); };
-void update(Screen& screen, bool overdue) { screen.draw(status_label(overdue)); }
-```
-
-A direct status_label test establishes the decision only. Rendering, threading and device behavior need their own integration or UI checks.
-
-C++20 examples are independent contextual translation units; declarations of fictional external APIs are illustrative. Compile for syntax separately; they are not complete integrations.
+A direct logic test establishes only the tested decision. Rendering, threading and device behavior need their own integration or UI checks.
 
 Reference: [Clean Architecture - Humble Object Pattern](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/ch23.xhtml)
 

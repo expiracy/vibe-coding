@@ -9,27 +9,7 @@ tags: test, isolation, layers, unit
 
 Test domain invariants directly and use case decisions through application contracts. Add real adapter and composition tests for behavior those direct checks cannot establish.
 
-**Incorrect:**
-
-```cpp
-struct HttpClient { int post_order(int); };
-void domain_test(HttpClient& client) { (void)client.post_order(0); /* Requires HTTP just to check a domain rule. */ }
-```
-
-**Better for this contract:**
-
-```cpp
-#include <stdexcept>
-bool valid_quantity(int quantity) { return quantity > 0; }
-void domain_test() {
-    if (valid_quantity(0)) throw std::runtime_error("zero must be rejected");
-    if (!valid_quantity(1)) throw std::runtime_error("one must be accepted");
-}
-```
-
 A test pyramid is a planning heuristic, not fixed percentages. A fake store cannot prove database mappings, durability or transaction atomicity.
-
-C++20 examples are independent contextual translation units; declarations of fictional external APIs are illustrative. Compile for syntax separately; they are not complete integrations.
 
 Reference: [The Test Pyramid](https://martinfowler.com/articles/practical-test-pyramid.html)
 

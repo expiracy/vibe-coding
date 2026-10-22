@@ -9,26 +9,7 @@ tags: adapt, mapper, translation, layers
 
 Map at boundaries where representations differ in meaning, access or change reasons. Use explicit output fields to make disclosure review possible; do not duplicate identical models mechanically.
 
-**Incorrect:**
-
-```cpp
-#include <string>
-struct Customer { std::string name; std::string password_hash; };
-Customer api_customer(const Customer& customer) { return customer; }
-```
-
-**Better for this contract:**
-
-```cpp
-#include <string>
-struct Customer { std::string name; std::string password_hash; };
-struct CustomerResponse { std::string name; };
-CustomerResponse api_customer(const Customer& customer) { return {customer.name}; }
-```
-
 Test the actual serializer to establish the external representation. An allowlist mapper can still leak a sensitive field if its classification is wrong.
-
-C++20 examples are independent contextual translation units; declarations of fictional external APIs are illustrative. Compile for syntax separately; they are not complete integrations.
 
 Reference: [Data Mapper Pattern](https://martinfowler.com/eaaCatalog/dataMapper.html)
 

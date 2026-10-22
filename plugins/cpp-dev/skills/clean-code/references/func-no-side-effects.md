@@ -9,41 +9,6 @@ tags: func, side-effects, purity, predictability
 
 Side effects are lies. Your function promises to do one thing, but it also does other hidden things. Avoid unexpected changes to class variables, globals, or passed arguments.
 
-**Incorrect (hidden side effect):**
-
-```cpp
-
-namespace example {
-// The authentication result is supplied; this is not a password algorithm.
-struct User { bool passwordAccepted{}; };
-struct Session { int initializations{}; void initialize() { ++initializations; } };
-
-
-bool checkPassword(const User& user, Session& session) {
-    if (!user.passwordAccepted) return false;
-    session.initialize(); // Hidden change in a query-like operation.
-    return true;
-}
-}
-```
-
-**Correct (explicit behavior):**
-
-```cpp
-
-namespace example {
-// The authentication result is supplied; this is not a password algorithm.
-struct User { bool passwordAccepted{}; };
-struct Session { int initializations{}; void initialize() { ++initializations; } };
-
-
-bool checkPassword(const User& user) { return user.passwordAccepted; }
-void initializeSessionForUser(const User& user, Session& session) {
-    if (checkPassword(user)) session.initialize();
-}
-}
-```
-
 If you must have a temporal coupling, make it explicit in the function name: `checkPasswordAndInitializeSession`.
 
 **When side effects are expected:**

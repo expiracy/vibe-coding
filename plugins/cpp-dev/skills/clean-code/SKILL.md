@@ -1,16 +1,16 @@
 ---
 name: clean-code
-description: Apply the upstream Clean Code principles to C++ code when writing, reviewing, or refactoring names, functions, comments, formatting, errors, objects, boundaries, classes, and tests. Uses C++ examples; focuses on design and readability rather than language implementation policy.
+description: Apply the upstream Clean Code principles to C++ code when writing, reviewing, or refactoring names, functions, comments, formatting, errors, objects, boundaries, classes, and tests. Focuses on design and readability rather than language implementation policy.
 license: MIT
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   language-baseline: "C++20"
 ---
 
 # Clean Code for C++
 
 Use the original [pproenca/dot-skills Clean Code collection](https://github.com/pproenca/dot-skills/tree/cf93c57cac89d6fc3e4194686000411567f5caf3/skills/.experimental/clean-code)
-as the source for design and readability principles, illustrated here in C++.
+as the source for design and readability principles applied to C++.
 The skill retains its 48 rules and ten categories. Read only the reference needed
 for the current decision through the [rule index](references/clean-code-index.md).
 
@@ -30,20 +30,17 @@ for the current decision through the [rule index](references/clean-code-index.md
 - Prefer a simple design that meets current requirements, expresses intent and
   avoids duplicated knowledge. Preserve observable behavior when refactoring.
 
-## Use the C++ examples appropriately
+## Apply the C++ constraints
 
 Target C++20 for new code and examples. Respect an explicitly older project
 baseline without silently changing its build standard. Follow public
 interfaces, conventions and error policy; do not modernize unrelated code or
 introduce a framework to reproduce an illustration.
 
-The C++ examples are small standalone translation units; the domain and vendor
-models are illustrative. Keep language/library implementation policies in the
-separate C++ guidance.
-
-Use existing project checks and report what actually ran. Passing examples are
-evidence about those examples, not proof that an application is correct or that
-every principle applies universally.
+Keep language/library implementation policies in the separate C++ guidance.
+Most rules need only prose. Retain a short example only when it resolves an
+ambiguity or a non-obvious failure; omit demonstration scaffolding. Use existing
+project checks and report actual results.
 
 [Source and adaptation notes](UPSTREAM.md) identify the exact upstream snapshot
 and bounded corrections. Use the [rule template](assets/templates/_template.md)

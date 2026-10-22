@@ -33,41 +33,6 @@ for calls with identical meanings and change reasons. Preserve API/ABI contracts
 Ownership, dangling views, special members and parameter passing remain the job
 of cpp-guidelines; this reference concerns the architectural contract.
 
-## C++20 example
-
-**Infrastructure exposed to policy:**
-
-```cpp
-namespace sql { struct Session { int read_total(int) const; }; }
-namespace application {
-int total(const sql::Session& session, int id) { return session.read_total(id); }
-}
-```
-
-**Consumer owns the capability:**
-
-```cpp
-namespace application {
-struct OrderTotals {
-    virtual ~OrderTotals() = default;
-    virtual int total_cents(int id) const = 0;
-};
-int total(const OrderTotals& totals, int id) { return totals.total_cents(id); }
-}
-namespace sql {
-struct Session { int read_total(int) const; };
-struct SqlTotals final : application::OrderTotals {
-    const Session& session;
-    explicit SqlTotals(const Session& value) : session(value) {}
-    int total_cents(int id) const override { return session.read_total(id); }
-};
-}
-```
-
-These independent compile-only excerpts use a fictional SQL API. In a real
-project, policy and adapter headers/targets are separate. Compiling them does
-not prove persistence correctness.
-
 ## Verify the affected boundary
 
 Compile a scratch translation unit including each changed public header first,
@@ -78,4 +43,4 @@ behavior tests and real adapter/composition checks where affected, and distingui
 compile evidence from runtime guarantees in the report.
 
 See [dependency direction](dep-inward-only.md), [interface ownership](dep-interface-ownership.md),
-[boundary cost](bound-boundary-cost-awareness.md) and the [checkout example](cpp-example.md).
+and [boundary cost](bound-boundary-cost-awareness.md).

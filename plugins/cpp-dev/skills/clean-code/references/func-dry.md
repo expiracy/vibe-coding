@@ -9,27 +9,6 @@ tags: func, dry, duplication, abstraction
 
 Duplication is the root of all evil in software. When an algorithm changes, you must change it in multiple places. When you fix a bug, you must remember to fix it everywhere.
 
-**Incorrect (duplicated logic):**
-
-```cpp
-
-namespace example {
-int regularPay(int days, int dailyRate) { return days * dailyRate; }
-int holidayPay(int days, int dailyRate) { return days * dailyRate; }
-}
-```
-
-**Correct (extracted common logic):**
-
-```cpp
-
-namespace example {
-int payForDays(int days, int dailyRate) { return days * dailyRate; }
-int regularPay(int days, int dailyRate) { return payForDays(days, dailyRate); }
-int holidayPay(int days, int dailyRate) { return payForDays(days, dailyRate); }
-}
-```
-
 Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
 
 **When NOT to apply DRY:**

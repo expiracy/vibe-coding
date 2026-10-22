@@ -9,33 +9,7 @@ tags: comp, screaming-architecture, structure, domain
 
 Make business capabilities visible in component names. Preserve existing conventions unless a concrete change justifies a move; folders alone do not enforce architecture.
 
-**Incorrect:**
-
-```text
-src/
-  managers/
-    manager.hpp
-  helpers/
-    helper.hpp
-  services/
-    service.hpp
-```
-
-**Better for this contract:**
-
-```text
-src/
-  orders/
-    domain/order.hpp
-    application/place_order.hpp
-    adapters/sql_orders.cpp
-  shipping/
-    application/dispatch_order.hpp
-```
-
-The tree is illustrative. A small C++ library may need fewer directories, and source layout need not match deployment units.
-
-The component/build layout is illustrative; use the project conventions and actual dependency graph.
+A small C++ library may need few directories. Source layout need not match deployment units.
 
 Reference: [Screaming Architecture](https://blog.cleancoder.com/uncle-bob/2011/09/30/Screaming-Architecture.html)
 

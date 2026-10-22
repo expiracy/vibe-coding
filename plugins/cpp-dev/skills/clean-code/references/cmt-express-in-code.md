@@ -9,36 +9,6 @@ tags: cmt, self-documenting, refactoring, clarity
 
 In many cases, creating a function that says the same thing as the comment you wanted to write is better. Code can be refactored to be self-explanatory.
 
-**Incorrect (comment explains obscure code):**
-
-```cpp
-
-namespace example {
-struct Employee { unsigned flags{}; int age{}; };
-bool check(const Employee& employee) {
-    // Check eligibility for the example's full-benefits policy.
-    return (employee.flags & 1u) != 0 && employee.age > 65;
-}
-}
-```
-
-**Correct (code expresses intent):**
-
-```cpp
-
-namespace example {
-struct Employee {
-    unsigned flags{};
-    int age{};
-    static constexpr unsigned HOURLY_FLAG = 1u;
-    static constexpr int RETIREMENT_AGE = 65; // Illustrative policy, not a recommendation.
-    bool isEligibleForFullBenefits() const {
-        return (flags & HOURLY_FLAG) != 0 && age > RETIREMENT_AGE;
-    }
-};
-}
-```
-
 **Benefits:**
 - Function names are searchable
 - Functions can be tested

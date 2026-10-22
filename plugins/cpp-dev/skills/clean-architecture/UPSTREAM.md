@@ -6,11 +6,11 @@ upstream skill version 1.0.6. All 42 rule identifiers and eight categories remai
 with the original MIT licence. Original downloads were checked against Git blob
 hashes before adaptation. Each rule links to its immutable upstream original.
 
-This version replaces multilingual examples with C++20 illustrations, C++ component
-layouts or CMake excerpts. The Java comparison is removed. The checkout example
-is executable; individual rule examples are independent compile-only excerpts,
-sometimes declaring fictional external APIs. Compilation does not establish real
-integration behavior, production correctness or effectiveness across models.
+The rules are adapted for C++20. Most are prose-only. A small interface-ownership
+snippet, dependency graph and CMake boundary example remain where they clarify a
+decision. Repetitive before/after pairs and the fictional checkout demonstration
+are removed. Examples are illustrative, not production templates or integration
+evidence.
 
 A focused header reference covers public contracts, includes and build dependencies.
 The main file stays concise; detailed references load on demand. Language/library

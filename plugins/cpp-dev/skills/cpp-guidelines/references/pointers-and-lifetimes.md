@@ -96,6 +96,22 @@ once, check its result, and retain that local owner throughout use. Checking
 between the two calls. Reference-counted lifetime does not synchronize mutable
 pointee state; use the project's synchronization for concurrent access.
 
+A weak observer must be locked once and the resulting owner retained during use:
+
+```cpp
+#include <memory>
+struct Widget { bool refreshed{}; };
+bool refresh(const std::weak_ptr<Widget>& observer) {
+    if (auto owner = observer.lock()) {
+        owner->refreshed = true;
+        return true;
+    }
+    return false;
+}
+```
+
+The lock protects lifetime; it does not synchronize `Widget` members.
+
 Sources: [R.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-weak_ptr),
 [F.43](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-dangle),
 [F.53](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-value-capture),
@@ -115,59 +131,3 @@ a const `span<T>` only makes the view handle const.
 
 Sources: [F.24](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rf-range),
 [ES.42](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#res-ptr).
-
-## Example: distinct borrowing and ownership contracts
-
-**Correct (C++20, with checks that remain active under NDEBUG):**
-
-```cpp
-#include <memory>
-#include <utility>
-
-struct Widget { int id; bool refreshed{}; };
-
-int inspect(const Widget& widget) { return widget.id; }
-
-void edit(Widget* widget) {
-    if (widget) widget->refreshed = true;
-}
-
-std::unique_ptr<Widget> receive(std::unique_ptr<Widget> widget) {
-    return widget;
-}
-
-void reseat(std::unique_ptr<Widget>& owner) {
-    owner = std::make_unique<Widget>(Widget{7});
-}
-
-bool refresh(const std::weak_ptr<Widget>& observer) {
-    if (auto owner = observer.lock()) {
-        owner->refreshed = true;
-        return true;
-    }
-    return false;
-}
-
-int main() {
-    auto owner = std::make_unique<Widget>(Widget{3});
-    if (inspect(*owner) != 3) return 1;
-    edit(nullptr);
-    edit(owner.get());
-    if (!owner->refreshed) return 2;
-
-    auto received = receive(std::move(owner));
-    if (owner || !received || inspect(*received) != 3) return 3;
-    reseat(received);
-    if (inspect(*received) != 7) return 4;
-
-    auto shared = std::make_shared<Widget>(Widget{9});
-    std::weak_ptr<Widget> observer = shared;
-    if (!refresh(observer) || !shared->refreshed) return 5;
-    shared.reset();
-    if (refresh(observer)) return 6;
-    return 0;
-}
-```
-
-The example is single-threaded. The weak lock protects lifetime, not concurrent
-access to `Widget` members.

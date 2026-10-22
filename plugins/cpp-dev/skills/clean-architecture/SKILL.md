@@ -6,7 +6,7 @@ description: >-
   C++ headers, or changing C++ module boundaries and dependency direction.
 license: MIT
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   cpp-baseline: "20"
 ---
 
@@ -24,7 +24,7 @@ need a boundary check, not mandatory layers.
 - Preserve APIs, ABI, behavior and error policy. Use C++20 within project constraints.
   Define failure guarantees; local rollback cannot undo remote effects.
 
-Read [header guidance](references/cpp-headers.md), the [42-rule index](references/architecture-index.md)
-or the [C++20 example](references/cpp-example.md) only as needed. Migrate one boundary
+Read [header guidance](references/cpp-headers.md) or the [42-rule index](references/architecture-index.md)
+only as needed. Migrate one boundary
 at a time. Run relevant header/build/behavior checks and real adapter checks for
 integration claims; report actual results. [Source notes](UPSTREAM.md).

@@ -9,28 +9,6 @@ tags: name, class, noun, identity
 
 Class names should be nouns or noun phrases. A class represents a thing or concept. Avoid verbs, manager-style names, and vague words.
 
-**Incorrect (verbs, vague, or manager-style):**
-
-```cpp
-
-namespace example {
-struct ProcessPayment {};
-struct Manager {};
-struct Data {};
-}
-```
-
-**Correct (specific noun phrases):**
-
-```cpp
-
-namespace example {
-struct Payment {};
-struct PaymentGateway {};
-struct AccountRepository {};
-}
-```
-
 **When NOT to use this pattern:**
 
 Manager-style names are acceptable when the class genuinely manages a resource lifecycle:

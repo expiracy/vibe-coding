@@ -3,7 +3,7 @@ name: cpp-guidelines
 description: Apply recommended C++ language and library practices for resources, pointer/reference contracts, lifetimes, object semantics, initialization, constness, parameter passing, type safety, and error mechanisms. Use when making or reviewing these C++ implementation choices.
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   cpp-baseline: "20"
 ---
 

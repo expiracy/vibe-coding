@@ -9,34 +9,6 @@ tags: name, method, verb, action
 
 Method names should be verbs or verb phrases. Methods do things, so their names should say what they do.
 
-**Incorrect (non-verb or unclear):**
-
-```cpp
-
-namespace example {
-class Account {
-    bool posted_{};
-public:
-    void payment() { posted_ = true; } // Is this a query or an action?
-    bool flag() const { return posted_; }
-};
-}
-```
-
-**Correct (verb phrases):**
-
-```cpp
-
-namespace example {
-class Account {
-    bool posted_{};
-public:
-    void postPayment() { posted_ = true; }
-    bool isPosted() const { return posted_; }
-};
-}
-```
-
 Use consistent operation and predicate names within the existing interface.
 
 Follow the C++ project's established naming conventions. Query names such as

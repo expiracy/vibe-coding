@@ -7,23 +7,8 @@ containers, lock guards and project wrappers; a custom deleter is useful at a
 C API boundary. Scoped destruction handles early returns and exception
 unwinding. C++ has no `finally` block.
 
-**Incorrect: a read-failure return leaks the file handle.**
-
-```cpp
-#include <cstdio>
-#include <optional>
-
-std::optional<unsigned char> read_first_byte(const char* path) {
-    auto* file = std::fopen(path, "rb");
-    if (!file) return std::nullopt;
-    unsigned char byte{};
-    if (std::fread(&byte, 1, 1, file) != 1) return std::nullopt;
-    std::fclose(file); // The early read-failure return leaks the handle.
-    return byte;
-}
-```
-
-**Correct: the owner closes the handle on every exit.**
+A C API handle needs its matching cleanup function. This owner closes the file
+on every return:
 
 ```cpp
 #include <cstdio>

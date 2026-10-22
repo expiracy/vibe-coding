@@ -9,27 +9,6 @@ tags: func, arguments, parameters, simplicity
 
 Review how many independent concepts a caller must supply. Group arguments that form a meaningful domain value, and reduce unrelated responsibilities where that simplifies the operation. Argument counts are prompts for review, not limits; preserve required public signatures and avoid wrappers that only hide parameters.
 
-**Incorrect (too many arguments):**
-
-```cpp
-
-namespace example {
-struct Circle { double x; double y; double radius; };
-Circle makeCircle(double x, double y, double radius) { return {x, y, radius}; }
-}
-```
-
-**Correct (minimized arguments):**
-
-```cpp
-
-namespace example {
-struct Point { double x; double y; };
-struct Circle { Point center; double radius; };
-Circle makeCircle(Point center, double radius) { return {center, radius}; }
-}
-```
-
 **Why fewer arguments?**
 - Easier to understand
 - Easier to test (fewer combinations)

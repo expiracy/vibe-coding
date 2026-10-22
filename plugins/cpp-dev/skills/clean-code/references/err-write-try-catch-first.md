@@ -7,50 +7,7 @@ tags: err, try-catch, tdd, boundaries
 
 ## Design Failure Paths First
 
-Start by defining the caller-visible failure behavior, then organize success and reporting around that contract. Preserve the project's existing error policy; the illustration below uses exceptions without prescribing that mechanism for every project.
-
-**Incorrect (error handling added as afterthought):**
-
-```cpp
-#include <fstream>
-#include <string>
-
-namespace example {
-std::string retrieveSection(const std::string& sectionName) {
-    std::ifstream stream(sectionName);
-    std::string line;
-    std::getline(stream, line);
-    return line; // A missing file and an empty section look the same.
-}
-}
-```
-
-**Correct (missing-file and read-failure behavior are explicit):**
-
-```cpp
-#include <fstream>
-#include <stdexcept>
-#include <string>
-
-namespace example {
-std::string retrieveSection(const std::string& sectionName) {
-    std::ifstream stream(sectionName);
-    if (!stream) throw std::runtime_error("Cannot open section: " + sectionName);
-    std::string line;
-    if (!std::getline(stream, line)) {
-        throw std::runtime_error("Cannot read section: " + sectionName);
-    }
-    return line;
-}
-// First add a test of the required missing-file behavior, then implement it.
-void missingSectionIsReported(const std::string& knownMissingPath) {
-    bool reported = false;
-    try { (void)retrieveSection(knownMissingPath); }
-    catch (const std::runtime_error&) { reported = true; }
-    if (!reported) throw std::logic_error("missing section must be reported");
-}
-}
-```
+Start by defining the caller-visible failure behavior, then organize success and reporting around that contract. Preserve the project's existing error policy. Do not prescribe exceptions for a project with a different failure contract.
 
 **Benefits:**
 - Forces you to consider error cases first

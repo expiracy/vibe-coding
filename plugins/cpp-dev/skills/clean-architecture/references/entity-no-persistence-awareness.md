@@ -9,27 +9,7 @@ tags: entity, persistence, database, ignorance
 
 A domain entity expresses its behavior without knowing SQL, ORM mappings or connection/session types. Infrastructure translates storage data into domain values.
 
-**Incorrect:**
-
-```cpp
-namespace sql { void update_balance(int, int); }
-struct Account { int id; int balance; void save() const { sql::update_balance(id, balance); } };
-```
-
-**Better for this contract:**
-
-```cpp
-struct Account { int id; int balance; };
-namespace application { struct Accounts { virtual ~Accounts() = default; virtual void save(const Account&) = 0; }; }
-namespace storage {
-struct AccountRow { int key; int balance; };
-Account to_domain(const AccountRow& row) { return {row.key, row.balance}; }
-}
-```
-
 A simple aggregate is appropriate when no invariant needs protection. Storage constraints still require integration checks at the adapter.
-
-C++20 examples are independent contextual translation units; declarations of fictional external APIs are illustrative. Compile for syntax separately; they are not complete integrations.
 
 Reference: [Clean Architecture - Database is a Detail](https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/ch30.xhtml)
 

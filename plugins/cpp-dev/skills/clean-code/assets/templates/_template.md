@@ -1,12 +1,14 @@
 # Adding a C++ Clean Code rule
 
-Retain the upstream topic and citation. Explain the design/readability decision,
-then provide a focused incorrect/correct example pair in C++, with useful
-exceptions and project-contract limits. Keep language implementation policies
-outside the Clean Code rule.
+State the actionable principle, when it applies, and exceptions that change the
+decision. Preserve the source citation and the boundary between readability,
+language policy and architecture.
 
-Use C++20-compatible syntax or explicitly identify another project baseline.
-Use existing frameworks when the project requires them. Mark omitted application
-context and fictional dependencies; do not present an illustration as an executed
-integration test. Use qualitative impact descriptions unless supported by actual
-measurements. Do not copy passages from the book.
+An example is optional. Include one only when it resolves an ambiguity or reveals
+a non-obvious failure that prose cannot explain as clearly. Keep the smallest
+useful C++20 snippet; omit fictional systems, duplicate before/after scaffolding
+and demonstration test harnesses. Label any omitted context. Verify retained
+code with suitable checks, without treating compilation as integration evidence.
+
+Follow the project's contracts and use qualitative claims unless measurements
+support a numerical claim. Do not copy passages from the book.

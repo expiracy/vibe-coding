@@ -14,30 +14,6 @@ The upstream guide presents these simple-design priorities:
 3. **No duplication** — every concept has a single representation
 4. **Fewest elements** — remove anything that doesn't serve the first three
 
-**Incorrect (over-engineered for imaginary requirements):**
-
-```cpp
-
-namespace example {
-struct Discount {
-    virtual double apply(double amount) const = 0;
-    virtual ~Discount() = default;
-};
-struct TenPercentDiscount : Discount { double apply(double amount) const override { return amount * 0.9; } };
-struct DiscountFactory { TenPercentDiscount create() const { return {}; } };
-double discountedAmount(double amount) { return DiscountFactory{}.create().apply(amount); }
-}
-```
-
-**Correct (simplest design that works):**
-
-```cpp
-
-namespace example {
-double discountedAmount(double amount) { return amount * 0.9; }
-}
-```
-
 **Rule 4 is the most overlooked:** After making code correct, expressive, and DRY, actively look for things to remove. Every class, method, and variable should justify its existence. If you have one implementation of an interface, question whether you need the interface. If a design pattern adds indirection without a current concrete benefit, remove it.
 
 **When more structure is justified:**

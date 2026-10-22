@@ -20,9 +20,10 @@ qualitative, illustrative assumptions are identified, and context corrections
 avoid treating line counts, abstraction patterns or error mechanisms as universal
 requirements. The original upstream text remains available at each source link.
 
-The Java examples are translated to C++20 illustrations with self-contained
-declarations. Java-only conventions, frameworks, `finally`, and other-language
-sections are adapted or removed. C++ ownership and language/library policies
+The guidance is adapted for C++20. Most rule examples have been removed where
+they repeated prose or required distracting scaffolding; a focused test fragment
+remains for the distinction between one concept and one assertion. Java-only
+conventions, frameworks and other-language sections are adapted or removed. C++ ownership and language/library policies
 remain in `cpp-guidelines`; they are not introduced as Clean Code principles.
 
 The principles are attributed upstream to Robert C. Martin's *Clean Code*.
