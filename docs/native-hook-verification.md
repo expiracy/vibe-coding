@@ -1,5 +1,8 @@
 # Native hook verification — 2026-10-22
 
+Historical record for commit `a920334`. The later C++ architecture migration
+changes packages and hook counts; see the current [activation guide](skill-context-hooks.md).
+
 Verified against Codex CLI 0.160.0 and Claude Code 2.1.282 using disposable local
 fixtures. The model-backed runs used the actual clients, installed plugins,
 normal hook dispatch and recorded hook outputs. No application/project code was

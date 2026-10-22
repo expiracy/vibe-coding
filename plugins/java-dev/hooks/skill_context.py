@@ -54,6 +54,7 @@ def save_state(path, value):
 
 
 CPP_SUFFIXES = {'.cpp', '.cc', '.cxx', '.c++', '.hpp', '.hh', '.hxx', '.h++', '.ipp', '.inl', '.tpp'}
+CPP_HEADER_SUFFIXES = {'.h', '.hpp', '.hh', '.hxx', '.h++', '.ipp', '.inl', '.tpp'}
 CODE_SUFFIXES = CPP_SUFFIXES | {'.h', '.c', '.java', '.py', '.js', '.jsx', '.ts', '.tsx', '.rs', '.go', '.cs', '.swift', '.rb', '.sh'}
 DOC_SUFFIXES = {'.md', '.mdx', '.rst', '.adoc'}
 IGNORED_PARTS = {'vendor', 'third_party', 'third-party', 'node_modules', '.git', 'build', 'dist', '_build', 'target', 'generated', '.venv', 'fixtures', 'testdata', '__snapshots__'}
@@ -95,10 +96,15 @@ def prompt_intent(prompt):
     if verification or refactor:
         flags.add('verification')
     if not prose_only and not diagram_only:
-        if re.search(r'(?<!\w)c\+\+(?!\w)|\bcpp\b|\S+\.(?:cpp|cc|cxx|hpp|hh|hxx|ipp|inl)\b', text):
+        if re.search(r'(?<!\w)c\+\+(?!\w)|\bcpp\b|\S+\.(?:cpp|cc|cxx|c\+\+|hpp|hh|hxx|h\+\+|ipp|inl|tpp)(?!\w)', text):
             flags.add('cpp')
         if re.search(r'\bjava\b|\S+\.java\b', text):
             flags.add('java')
+    if 'cpp' in flags:
+        if architecture:
+            flags.add('cpp-architecture')
+        if re.search(r'\bheaders?\b|\S+\.(?:hpp|hh|hxx|h\+\+|ipp|inl|tpp)(?!\w)', text):
+            flags.add('cpp-header')
     if prose_only or diagram_only:
         mode = 'prose'
     elif formatting:
@@ -126,7 +132,7 @@ def tool_paths(event):
         args = {'command': args}
     if not isinstance(args, dict):
         return [], False, ''
-    writing = name in {'Edit', 'Write', 'MultiEdit', 'apply_patch'}
+    writing = name in {'Edit', 'Write', 'MultiEdit', 'apply_patch', 'write_file', 'edit_file'}
     paths = []
     for key in ('file_path', 'path'):
         if isinstance(args.get(key), str):
@@ -190,7 +196,14 @@ def file_signals(event, state):
         suffix = path.suffix.lower()
         if path.suffix == '.C' or suffix in CPP_SUFFIXES or (suffix == '.h' and cpp_header(path, state, cwd)):
             flags.add('cpp')
-            state['intent'] = sorted(set(state.get('intent', [])) | {'cpp'})
+            intent = set(state.get('intent', [])) | {'cpp'}
+            if suffix in CPP_HEADER_SUFFIXES:
+                intent.add('cpp-header')
+            if 'cpp-header' in intent:
+                flags.add('cpp-header')
+            if 'architecture' in intent:
+                flags.add('cpp-architecture')
+            state['intent'] = sorted(intent)
         if suffix == '.java':
             flags.add('java')
         code = suffix in CODE_SUFFIXES or path.suffix == '.C'

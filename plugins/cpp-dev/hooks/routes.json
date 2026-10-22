@@ -6,6 +6,10 @@
     ],
     "cpp-guidelines": [
       "cpp"
+    ],
+    "clean-architecture": [
+      "cpp-header",
+      "cpp-architecture"
     ]
   }
 }

@@ -4,9 +4,8 @@ import json
 from pathlib import Path
 
 PROFILES = {
-    'cpp-dev': {'clean-code': ['cpp'], 'cpp-guidelines': ['cpp']},
+    'cpp-dev': {'clean-code': ['cpp'], 'cpp-guidelines': ['cpp'], 'clean-architecture': ['cpp-header', 'cpp-architecture']},
     'java-dev': {'clean-code': ['java']},
-    'dev-architecture': {'clean-architecture': ['architecture']},
     'dev-workflow': {'canon-tdd': ['behavior'], 'test-strategy': ['verification']},
     'doc-tools': {'text-writing': ['prose'], 'uml-diagrams': ['diagram']},
 }

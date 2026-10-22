@@ -1,7 +1,7 @@
 {
   "name": "cpp-dev",
-  "version": "2.3.0",
-  "description": "Two independent C++ skills: upstream Clean Code principles with C++ examples, and C++ language/library guidelines.",
+  "version": "3.0.0",
+  "description": "Three independent C++20 skills: Clean Code principles, language/library guidelines and Clean Architecture.",
   "author": {
     "name": "James Gray"
   },
@@ -9,7 +9,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "C++ Development",
-    "shortDescription": "Upstream Clean Code in C++, plus separate C++ guidelines."
+    "shortDescription": "C++20 Clean Code, language guidance and architecture."
   },
   "hooks": "./hooks/codex.json"
 }

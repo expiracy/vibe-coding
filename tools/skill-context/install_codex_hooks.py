@@ -12,7 +12,8 @@ import tempfile
 import threading
 import time
 
-NAMES = ('cpp-dev', 'java-dev', 'dev-architecture', 'dev-workflow', 'doc-tools')
+NAMES = ('cpp-dev', 'java-dev', 'dev-workflow', 'doc-tools')
+RETIRED_NAMES = ('dev-architecture',)
 
 
 def registered_hooks(existing, profiles, data_root, native_names=()):
@@ -20,7 +21,7 @@ def registered_hooks(existing, profiles, data_root, native_names=()):
     events = result.setdefault('hooks', {})
     if not isinstance(events, dict):
         raise ValueError('existing hooks must be an object')
-    markers = {f'vibe-coding context ({name})' for name in NAMES}
+    markers = {f'vibe-coding context ({name})' for name in NAMES + RETIRED_NAMES}
     for event, groups in list(events.items()):
         kept = []
         for group in groups:

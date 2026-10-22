@@ -5,23 +5,18 @@
   },
   "metadata": {
     "description": "Personal development and documentation plugins.",
-    "version": "1.5.1"
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "cpp-dev",
       "source": "./plugins/cpp-dev",
-      "description": "Two independent C++ skills: upstream Clean Code principles with C++ examples, and C++ language/library guidelines."
+      "description": "C++20 Clean Code, language/library guidelines and Clean Architecture with automatic header guidance."
     },
     {
       "name": "java-dev",
       "source": "./plugins/java-dev",
       "description": "Upstream Clean Code principles and caveats illustrated in Java."
-    },
-    {
-      "name": "dev-architecture",
-      "source": "./plugins/dev-architecture",
-      "description": "Clean Architecture boundaries, dependency direction and policy isolation, with C++ and Java examples."
     },
     {
       "name": "dev-workflow",

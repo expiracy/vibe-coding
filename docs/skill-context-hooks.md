@@ -14,7 +14,7 @@ and assets stay on demand. Global `AGENTS.md` continues to load through the host
 | Behavior implementation or bug fixing | `dev-workflow:canon-tdd`, `dev-workflow:test-strategy` |
 | Test planning or coverage questions | `dev-workflow:test-strategy` |
 | Refactoring with behavior preserved | `dev-workflow:test-strategy` |
-| Architecture or dependency decisions | `dev-architecture:clean-architecture` |
+| C++ header creation/read/edit/review, or C++ architecture/dependency decisions | `cpp-dev:clean-architecture` |
 | Human-facing prose, README or documentation work | `doc-tools:text-writing` |
 | Software diagrams or identified TikZ source | `doc-tools:uml-diagrams` |
 
@@ -23,7 +23,13 @@ strategy loading. Source language guidance still applies. Generated/vendor
 paths, test fixtures and instruction files such as `SKILL.md` and `AGENTS.md`
 do not automatically trigger prose editing guidance. `.h` alone does not imply
 C++: a C++ task, neighboring C++ file or nearby CMake CXX declaration supplies
-that context. Arbitrary projects can still use explicit skill invocation.
+that context. Unambiguous C++ headers include `.hpp`, `.hh`, `.hxx`, `.h++`
+and inline/template headers `.ipp`, `.inl`, `.tpp`. Header prompts can load
+architecture before an edit; header reads provide early context too. An ordinary
+`.cpp` task loads the two code/language skills, adding architecture only for
+architecture intent or a header already involved in the task. Generic architecture
+requests wait for C++ evidence; Java work does not load C++ architecture.
+Arbitrary projects can still use explicit skill invocation.
 
 ## Events and deduplication
 

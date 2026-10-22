@@ -125,10 +125,52 @@ class SkillContextTest(unittest.TestCase):
         self.assertIn("# Guidance uml-diagrams", self.hook(skill="uml-diagrams", **payload))
         self.assertEqual(self.hook(skill="text-writing", **payload), "")
 
-    def test_architecture_guidance_is_intent_driven(self):
-        self.add_skill("clean-architecture", ["architecture"])
+    def test_cpp_header_write_loads_architecture_once(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        args = {"tool_name": "Write", "tool_input": {"file_path": "include/order.hpp", "content": "struct Order {};"}}
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", **args))
+        self.assertEqual(self.hook(skill="clean-architecture", **args), "")
+
+    def test_cpp_architecture_guidance_is_language_scoped(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
         self.assertEqual(self.hook(skill="clean-architecture"), "")
-        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", hook_event_name="UserPromptSubmit", prompt="Review dependency direction between the application modules", tool_input={}))
+        args = {"hook_event_name": "UserPromptSubmit", "tool_input": {}}
+        self.assertEqual(self.hook(skill="clean-architecture", prompt="Review the Java architecture", **args), "")
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", prompt="Review C++ dependency direction", **args))
+
+    def test_architecture_intent_waits_for_cpp_evidence(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        self.assertEqual(self.hook(skill="clean-architecture", hook_event_name="UserPromptSubmit", prompt="Review dependency direction", tool_input={}), "")
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture"))
+
+    def test_cpp_header_prompt_loads_before_the_edit(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", hook_event_name="UserPromptSubmit", prompt="Create order.hpp", tool_input={}))
+
+    def test_header_architecture_restores_after_source_reads_and_compaction(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", tool_name="Read", tool_input={"file_path": "order.hpp"}))
+        self.assertEqual(self.hook(skill="clean-architecture"), "")
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", hook_event_name="SessionStart", source="compact", tool_input={}))
+        self.assertEqual(self.hook(skill="clean-architecture", tool_name="Edit", tool_input={"file_path": "order.hpp"}), "")
+
+    def test_c_and_generated_headers_do_not_load_cpp_architecture(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        for path in ["c_api.h", "vendor/widget.hpp", "message.pb.hpp"]:
+            with self.subTest(path=path):
+                self.assertEqual(self.hook(skill="clean-architecture", tool_name="Write", tool_input={"file_path": path}), "")
+
+    def test_dot_h_architecture_uses_cpp_context(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        self.hook(skill="clean-architecture", hook_event_name="UserPromptSubmit", prompt="Fix the C++ parser", tool_input={})
+        args = {"tool_name": "Edit", "tool_input": {"file_path": "parser.h"}}
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", **args))
+        self.assertEqual(self.hook(skill="clean-architecture", **args), "")
+
+    def test_patch_creation_loads_header_architecture(self):
+        self.add_skill("clean-architecture", ["cpp-header", "cpp-architecture"])
+        patch = "*** Begin Patch\n*** Add File: include/new.hpp\n+struct New {};\n*** End Patch"
+        self.assertIn("# Guidance clean-architecture", self.hook(skill="clean-architecture", tool_name="apply_patch", tool_input={"command": patch}))
 
     def test_formatting_does_not_activate_behavior_workflow(self):
         self.add_skill("canon-tdd", ["behavior"])

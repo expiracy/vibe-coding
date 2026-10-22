@@ -15,7 +15,8 @@ class PackagedHookTest(unittest.TestCase):
         cases = [
             ("cpp-dev", "Fix the C++ parser crash", {"clean-code", "cpp-guidelines"}),
             ("java-dev", "Fix the Java parser crash", {"clean-code"}),
-            ("dev-architecture", "Review dependency direction between modules", {"clean-architecture"}),
+            ("cpp-dev", "Create a C++ header order.hpp", {"clean-code", "cpp-guidelines", "clean-architecture"}),
+            ("cpp-dev", "Review the C++ architecture", {"clean-code", "cpp-guidelines", "clean-architecture"}),
             ("dev-workflow", "Implement the parser feature", {"canon-tdd", "test-strategy"}),
             ("doc-tools", "Write a guide with a sequence diagram", {"text-writing", "uml-diagrams"}),
         ]
@@ -59,7 +60,7 @@ class PackagedHookTest(unittest.TestCase):
                     self.assertEqual(run(payload), {})
 
     def test_codex_precompact_does_not_set_context_output_limit(self):
-        for name in ("cpp-dev", "java-dev", "dev-architecture", "dev-workflow", "doc-tools"):
+        for name in ("cpp-dev", "java-dev", "dev-workflow", "doc-tools"):
             config = json.loads((REPO / "plugins" / name / "hooks/codex.json").read_text())
             self.assertNotIn("additionalContextLimit", config["hooks"]["PreCompact"][0]["hooks"][0])
 

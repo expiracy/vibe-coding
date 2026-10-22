@@ -29,18 +29,6 @@
       "category": "Productivity"
     },
     {
-      "name": "dev-architecture",
-      "source": {
-        "source": "local",
-        "path": "./plugins/dev-architecture"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
       "name": "dev-workflow",
       "source": {
         "source": "local",

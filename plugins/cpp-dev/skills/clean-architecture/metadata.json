@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "upstream": {
+    "repository": "https://github.com/pproenca/dot-skills",
+    "path": "skills/.experimental/clean-architecture",
+    "revision": "cf93c57cac89d6fc3e4194686000411567f5caf3",
+    "skillVersion": "1.0.6"
+  },
+  "ruleCount": 42,
+  "categories": 8,
+  "exampleBaselines": [
+    "C++20"
+  ],
+  "language": "C++"
+}

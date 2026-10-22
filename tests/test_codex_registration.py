@@ -19,7 +19,10 @@ class CodexRegistrationTest(unittest.TestCase):
             hooks.mkdir()
             (hooks / "codex.json").write_bytes((REPO / "plugins/dev-workflow/hooks/codex.json").read_bytes())
             (hooks / "skill_context.py").write_text("# fixture")
-            result = module.registered_hooks(existing, {"dev-workflow": root}, Path(temp) / "data")
+            retired = {"type": "command", "command": "old-architecture-loader", "statusMessage": "vibe-coding context (dev-architecture)"}
+            migrating = json.loads(json.dumps(existing))
+            migrating["hooks"]["PreToolUse"].append({"hooks": [retired]})
+            result = module.registered_hooks(migrating, {"dev-workflow": root}, Path(temp) / "data")
             self.assertEqual(result["description"], "My hooks")
             self.assertEqual(result["hooks"]["PreToolUse"][0], existing["hooks"]["PreToolUse"][0])
             self.assertEqual(len(result["hooks"]["PreToolUse"]), 2)
